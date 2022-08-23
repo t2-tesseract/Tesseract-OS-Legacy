@@ -1,0 +1,1 @@
+qemu-system-i386 -m 128M -enable-kvm -fda Bootloader/Main.bin
