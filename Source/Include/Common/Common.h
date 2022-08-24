@@ -15,6 +15,9 @@
         _v;     \
 })
 
+void Outw(unsigned short port, unsigned short value);
+static inline void IoWait(void);
+void Delay(uint16_t Ms);
 void *MemoryCopy(char *dst, char *src, int n);
 size_t StringLength(const char* String);
 bool Backspace(char Buffer[]);

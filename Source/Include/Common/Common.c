@@ -4,6 +4,19 @@
 #include <stdbool.h>
 #include "Common.h"
 
+void Outw(unsigned short port, unsigned short value){
+    asm volatile ("outw %%ax,%%dx": :"dN"(port), "a"(value));
+} 
+
+static inline void IoWait(void){
+    Outb(0x80, 0);
+}
+
+void Delay(uint16_t Ms){
+    for(long long int i=0; i<5000*(uint16_t)Ms / 2; i++)
+        IoWait();
+}
+
 void *MemoryCopy(char *dst, char *src, int n){
 	char *p = dst;
 	while (n--)

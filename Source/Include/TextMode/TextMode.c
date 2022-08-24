@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <Include/Graphics/Graphics.h>
 #include "TextMode.h"
 
 volatile uint16_t* VgaBuffer = (uint16_t*)0xB8000;
@@ -125,7 +126,6 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("It is now safe to turn off the computer.");
 		asm volatile("hlt");
     } else if (CompareString(Input, "help") == 0) {
-		// help command
 		TerminalSetColor(0x0A);
 
 		TerminalWrite(Tab);
@@ -139,8 +139,30 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("shutdown ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- Halt the CPU and shutdown the computer.\n\n");
-    } else {
+		TerminalWrite("- Halt the CPU and shutdown the computer.\n");
+		TerminalSetColor(0x0C);
+		TerminalWrite("    lv ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("- List alls video modes.\n");
+		TerminalSetColor(0x0C);
+		TerminalWrite("    sv ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("- Set video modes.\n");
+    } else if (CompareString(Input, "lv") == 0){
+		TerminalSetColor(0x0E);
+		TerminalWrite("1: 80x25 Text mode\n");
+		// TerminalWrite("2: 320x200 VGA graphic mode\n");
+		TerminalSetColor(0x0F);
+	} else if (CompareString(Input, "sv") == 0){
+		
+	} else if (CompareString(Input, "sv1") == 0){
+		
+	// } else if (CompareString(Input, "sv2") == 0){
+	// 	TerminalWrite("Setting VGA mode...\n");
+	// 	Delay(1000);
+	} else {
 		TerminalSetColor(0x0C);
 
 		TerminalWrite(Tab);
