@@ -141,8 +141,7 @@ void ExecuteCommand(char *Input){
 			"clr"
 		};
 		char *generalDescList[] = {
-			"Halt the CPU and shutdown the computer.", 
-			"List and set video modes.", 
+			"Halt the CPU and shutdown the computer.",
 			"Clear the screen."
 		};
 		size_t generalArraySize = sizeof(generalCommandsList) / sizeof(generalCommandsList[0]);
