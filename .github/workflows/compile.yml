@@ -13,7 +13,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./build
+        working-directory: build
 
     steps:
     - uses: actions/checkout@v3
