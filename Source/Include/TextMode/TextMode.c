@@ -118,9 +118,16 @@ void ExecuteCommand(char *Input){
 
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
-		TerminalClear(true);
 		TerminalSetColor(0x0C);
+
+		TerminalWrite(Tab);
 		TerminalWrite("Stopping the CPU.\n\n");
+
+		Delay(2500);
+
+		TerminalClear(true);
+
+		Delay(1250);
 
 		TerminalSetColor(0x0A);
 		TerminalWrite("It is now safe to turn off the computer.");
@@ -133,35 +140,43 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 3; i = i + 1) {
+		for (i = 0; i < 2; i = i + 1) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("shutdown ");
 
 		TerminalSetColor(0x0F);
 		TerminalWrite("- Halt the CPU and shutdown the computer.\n");
+
 		TerminalSetColor(0x0C);
-		TerminalWrite("    lv ");
+
+		for (i = 0; i < 2; i = i + 1) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("lsv ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- List alls video modes.\n");
+		TerminalWrite("- List and set video modes.\n");
+
 		TerminalSetColor(0x0C);
-		TerminalWrite("    sv ");
+
+		for (i = 0; i < 2; i = i + 1) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("clr ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- Set video modes.\n");
-    } else if (CompareString(Input, "lv") == 0){
+		TerminalWrite("- Clear the screen.\n\n");
+    } else if (CompareString(Input, "lsv") == 0) {
 		TerminalSetColor(0x0E);
-		TerminalWrite("1: 80x25 Text mode\n");
+
+		TerminalWrite(Tab);
+		TerminalWrite("1: 80x25 Text mode\n\n");
 		// TerminalWrite("2: 320x200 VGA graphic mode\n");
-		TerminalSetColor(0x0F);
-	} else if (CompareString(Input, "sv") == 0){
-		
-	} else if (CompareString(Input, "sv1") == 0){
-		
-	// } else if (CompareString(Input, "sv2") == 0){
-	// 	TerminalWrite("Setting VGA mode...\n");
-	// 	Delay(1000);
+
+		// TODO: make a mini shell to select resolution number (ex "1" for 80x25 text mode)
+	} else if (CompareString(Input, "clr") == 0) {
+		TerminalClear(true);
 	} else {
 		TerminalSetColor(0x0C);
 
