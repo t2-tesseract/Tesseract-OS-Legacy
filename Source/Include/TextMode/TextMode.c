@@ -13,8 +13,7 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
-void TerminalClear(bool resetPos) {
-	// clear the screen
+void TerminalClear(bool ResetPos) {
 	for (int col = 0; col < VgaCols; col ++)
 	{
 		for (int row = 0; row < VgaRows; row ++)
@@ -24,8 +23,7 @@ void TerminalClear(bool resetPos) {
 		}
 	}
 
-	// reset the cursor position if true
-	if (resetPos) {
+	if (ResetPos) {
 		TerminalCol = 0;
 		TerminalRow = 0;
 	}
