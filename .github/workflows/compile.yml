@@ -11,16 +11,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./build
+
     steps:
     - uses: actions/checkout@v3
-    - name: Install gcc
+    - name: Install dependencies
       run: |
            sudo apt-get install -y gcc
            sudo apt-get install -y nasm
-    - name: make
+    - name: Build .img file
       run: make
     - name: Publish Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
-          name: IMG
-          path: OSImage.img
+          path: build/OSImage.img
