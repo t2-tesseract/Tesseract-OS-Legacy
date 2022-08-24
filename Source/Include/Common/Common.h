@@ -16,4 +16,7 @@
 })
 
 void *MemoryCopy(char *dst, char *src, int n);
+size_t StringLength(const char* String);
+bool Backspace(char Buffer[]);
+void Append(char s[], char n);
 void InitPic(void);

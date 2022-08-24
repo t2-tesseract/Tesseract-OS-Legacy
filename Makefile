@@ -2,7 +2,7 @@ SRCS := $(shell find Source/ -name '*.c')
 OBJS := $(SRCS:.c=.o)
 
 %.o: %.c
-	gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c $< -o $@
+	gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c $< -o $@
 
 Kernel.bin: KernelEntry.o Interrupts.o $(OBJS)
 	ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386

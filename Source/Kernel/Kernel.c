@@ -1,19 +1,25 @@
 #include <Include/TextMode/TextMode.h>
 #include <Include/Cpu/Gdt/Gdt.h>
 #include <Include/Cpu/Idt/Idt.h>
+#include <Include/Graphics/Graphics.h>
 
 void _start(){
 	InitGdt();
 	InitIdt();
 	InitPic();
     TerminalClear();
-	TerminalSetColor(0x0A);
-	TerminalWrite("Gdt loaded!\n");
-	TerminalWrite("Idt loaded!\n");
-	TerminalSetColor(0x0B);
-	TerminalWrite("Welcome!\n\n");
+	TerminalSetColor(0x02);
+	TerminalWrite("Kernel: ");
+	TerminalSetColor(0x0F);
+	TerminalWrite("GDT Loaded!\n");
+	TerminalSetColor(0x02);
+	TerminalWrite("Kernel: ");
+	TerminalSetColor(0x0F);
+	TerminalWrite("IDT Loaded!\n\n");
 	EnableInterrupts;
-	TerminalWrite("Keyboard inputs: ");
+	TerminalSetColor(0x0B);
+	TerminalWrite("Tesseract$ ");
+	TerminalSetColor(0x0F);
 
-    return;
+    while(1);
 }

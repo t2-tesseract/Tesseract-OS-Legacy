@@ -1,14 +1,6 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/kokolor/Dev/OSDev/Tesseract'
-nasm Source/Kernel/KernelEntry.asm -f elf -o KernelEntry.o
-nasm Source/Include/Cpu/Idt/Interrupts.asm -f elf32 -o Interrupts.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Kernel/Kernel.c -o Source/Kernel/Kernel.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/TextMode/TextMode.c -o Source/Include/TextMode/TextMode.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/Cpu/Gdt/Gdt.c -o Source/Include/Cpu/Gdt/Gdt.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/Cpu/Idt/Idt.c -o Source/Include/Cpu/Idt/Idt.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/Cpu/Idt/Interrupts/Interrupts.c -o Source/Include/Cpu/Idt/Interrupts/Interrupts.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c -o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o
-gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c Source/Include/Common/Common.c -o Source/Include/Common/Common.o
-ld -o Kernel.bin -Ttext 0x1000 KernelEntry.o Interrupts.o Source/Kernel/Kernel.o Source/Include/TextMode/TextMode.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Common/Common.o --oformat binary -m elf_i386
+ 
+make: 'Kernel.bin' is up to date.
 make: Leaving directory '/home/kokolor/Dev/OSDev/Tesseract'
  

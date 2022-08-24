@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Aug 24 12:24:53 2022
+# Make data base, printed on Wed Aug 24 14:49:43 2022
 
 # Variables
 
@@ -23,17 +23,11 @@ GTK_RC_FILES = /etc/gtk/gtkrc:/home/kokolor/.gtkrc:/home/kokolor/.config/gtkrc
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-KONSOLE_DBUS_SERVICE = :1.64
-# environment
 LC_NAME = fr_FR.UTF-8
 # environment
 LC_NUMERIC = fr_FR.UTF-8
 # environment
-VSCODE_CWD = /home/kokolor/Dev/OSDev/Tesseract
-# environment
-WINDOWID = 83886087
-# environment
-LESS_TERMCAP_me = [0m
+VSCODE_CWD = /home/kokolor
 # environment
 LC_ADDRESS = fr_FR.UTF-8
 # default
@@ -47,8 +41,6 @@ SNAP_INSTANCE_NAME = code
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/105/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
-KONSOLE_VERSION = 220403
-# environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
@@ -60,10 +52,6 @@ PWD = /home/kokolor/Dev/OSDev/Tesseract
 MAIL = /var/spool/mail/kokolor
 # environment
 XDG_DATA_DIRS = /home/kokolor/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
-# environment
-OLDPWD = /home/kokolor
-# environment
-KONSOLE_DBUS_WINDOW = /Windows/1
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -78,26 +66,18 @@ LANG = C
 XAUTHORITY = /home/kokolor/.Xauthority
 # default
 .LOADED := 
-# environment
-LESS_TERMCAP_md = [01;32m
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-COLORFGBG = 15;0
 # makefile
 MAKEFLAGS = pqrR
-# environment
-LESS_TERMCAP_so = [01;47;34m
 # makefile
 CURDIR := /home/kokolor/Dev/OSDev/Tesseract
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 1)
-SRCS := Source/Kernel/Kernel.c Source/Include/TextMode/TextMode.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Interrupts.c Source/Include/Cpu/Idt/Idt.c Source/Include/Common/Common.c 
+SRCS := Source/Kernel/Kernel.c Source/Include/TextMode/TextMode.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Idt.c Source/Include/Cpu/Idt/Interrupts/Interrupts.c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c Source/Include/Common/Common.c Source/Include/Graphics/Graphics.c 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
-# environment
-LESS_TERMCAP_ue = [0m
 # environment
 PAM_KWALLET5_LOGIN = /run/user/1000/kwallet5.socket
 # environment
@@ -111,8 +91,6 @@ XDG_CONFIG_DIRS = /home/kokolor/.config/kdedefaults:/etc/xdg
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-P9K_SSH = 0
-# environment
 XCURSOR_THEME = breeze_cursors
 # environment
 XDG_SESSION_DESKTOP = KDE
@@ -123,11 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 1872
+VSCODE_PID = 4042
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 SESSION_MANAGER = local/kokolor-aspiree5575g:@/tmp/.ICE-unix/914,unix/kokolor-aspiree5575g:/tmp/.ICE-unix/914
 # automatic
@@ -139,25 +119,19 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
-P9K_TTY = old
-# environment
 VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePackId":"8a64477f85858ca31d1daacec93dba94.fr","_translationsConfigFile":"/home/kokolor/.config/Code/clp/8a64477f85858ca31d1daacec93dba94.fr/tcf.json","_cacheRoot":"/home/kokolor/.config/Code/clp/8a64477f85858ca31d1daacec93dba94.fr","_resolvedLanguagePackCoreLocation":"/home/kokolor/.config/Code/clp/8a64477f85858ca31d1daacec93dba94.fr/e4503b30fc78200f846c62cf8091b76ff5547662","_corruptedFile":"/home/kokolor/.config/Code/clp/8a64477f85858ca31d1daacec93dba94.fr/corrupted.info","_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile (from 'Makefile', line 2)
-OBJS := Source/Kernel/Kernel.o Source/Include/TextMode/TextMode.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Interrupts.o Source/Include/Cpu/Idt/Idt.o Source/Include/Common/Common.o
+OBJS := Source/Kernel/Kernel.o Source/Include/TextMode/TextMode.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Common/Common.o Source/Include/Graphics/Graphics.o
 # makefile
 SHELL = /bin/sh
-# environment
-LESS_TERMCAP_us = [01;36m
 # default
 MAKECMDGOALS := all
 # environment
 DOTNET_BUNDLE_EXTRACT_BASE_DIR = /home/kokolor/.cache/dotnet_bundle_extract
 # environment
-SHLVL = 2
-# environment
-PROFILEHOME = 
+SHLVL = 1
 # environment
 MAKELEVEL := 0
 # default
@@ -165,9 +139,7 @@ MAKE = $(MAKE_COMMAND)
 # environment
 SNAP_COOKIE = ygiR3voKmQPYXjTtRngvqY5-m85mJ6NxgqldcqtvN3twSninaXOM
 # environment
-PATH = /home/kokolor/opt/cross/bin:/home/kokolor/opt/cross/bin:/home/kokolor/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/home/kokolor/.dotnet/tools:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin
-# environment
-LESS_TERMCAP_se = [0m
+PATH = /home/kokolor/opt/cross/bin:/home/kokolor/opt/cross/bin:/home/kokolor/.local/bin:/home/kokolor/opt/cross/bin:/home/kokolor/opt/cross/bin:/home/kokolor/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/home/kokolor/.dotnet/tools:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/var/lib/snapd/snap/bin
 # default
 MAKEFILES := 
 # environment
@@ -182,8 +154,6 @@ MOTD_SHOWN = pam
 SNAP_USER_COMMON = /home/kokolor/snap/code/common
 # environment
 LC_TIME = fr_FR.UTF-8
-# environment
-LESS_TERMCAP_mb = [01;32m
 # environment
 SNAP = /snap/code/105
 # environment
@@ -203,13 +173,11 @@ XDG_SEAT = seat0
 # environment
 XDG_CURRENT_DESKTOP = KDE
 # environment
-LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.swp=00;90:*.tmp=00;90:*.dpkg-dist=00;90:*.dpkg-old=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:
+LS_COLORS = 
 # automatic
 +F = $(notdir $+)
 # environment
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
-# environment
-LESS = -R
 # environment
 DESKTOP_SESSION = plasma
 # environment
@@ -245,8 +213,6 @@ SNAP_DATA = /var/snap/code/105
 # environment
 SNAP_CONTEXT = ygiR3voKmQPYXjTtRngvqY5-m85mJ6NxgqldcqtvN3twSninaXOM
 # environment
-KONSOLE_DBUS_SESSION = /Sessions/1
-# environment
 LC_MEASUREMENT = fr_FR.UTF-8
 # environment
 _ = /usr/bin/make
@@ -254,8 +220,6 @@ _ = /usr/bin/make
 LC_PAPER = fr_FR.UTF-8
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
-# environment
-COLORTERM = truecolor
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/kokolor/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
@@ -270,8 +234,6 @@ HOME = /home/kokolor
 ELECTRON_RUN_AS_NODE = 1
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-116eb7f4-1.70.2-main.sock
-# environment
-TERM = xterm-256color
 # environment
 SNAP_NAME = code
 # environment
@@ -291,20 +253,13 @@ SUFFIXES :=
 # environment
 TARGET = i686-elf
 # environment
- 
 QT_AUTO_SCREEN_SCALE_FACTOR = 0
-# environment
-_P9K_TTY = /dev/pts/1
 # environment
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
 SNAP_COMMON = /var/snap/code/common
-# environment
-LS_OPTIONS = --color=auto
-# environment
-SHELL_SESSION_ID = 23f44a058581496b8c1370efa2fd6e90
 # environment
 KDE_SESSION_VERSION = 5
 # default
@@ -316,13 +271,11 @@ SNAP_USER_DATA = /home/kokolor/snap/code/105
 # environment
 DOTNET_ROOT = /usr/share/dotnet
 # environment
-PKGFILE_PROMPT_INSTALL_MISSING = 1
-# environment
 LC_IDENTIFICATION = fr_FR.UTF-8
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=154/1024=15%, Rehash=0, Collisions=19/189=10%
+# Load=131/1024=13%, Rehash=0, Collisions=7/166=4%
 
 # Pattern-specific Variable Values
 
@@ -330,26 +283,20 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2057, inode 3314225): 8 files, no impossibilities.
+# . (device 2057, inode 3314225): 13 files, no impossibilities.
 
-# 8 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
 %.o: %.c
 #  recipe to execute (from 'Makefile', line 5):
-	gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -m32 -fno-pie -c $< -o $@
+	gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c $< -o $@
 
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
-# Not a target:
-Source/Include/Cpu/Idt/Interrupts.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-Kernel.bin: KernelEntry.o Interrupts.o Source/Kernel/Kernel.o Source/Include/TextMode/TextMode.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Interrupts.o Source/Include/Cpu/Idt/Idt.o Source/Include/Common/Common.o
+Kernel.bin: KernelEntry.o Interrupts.o Source/Kernel/Kernel.o Source/Include/TextMode/TextMode.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Common/Common.o Source/Include/Graphics/Graphics.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -357,9 +304,15 @@ Kernel.bin: KernelEntry.o Interrupts.o Source/Kernel/Kernel.o Source/Include/Tex
 	ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386
 
 # Not a target:
+Source/Include/Graphics/Graphics.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 00:14:01.701283525
+#  Last modified 2022-08-24 14:49:23.231687707
 #  File has been updated.
 #  Successfully updated.
 
@@ -377,6 +330,7 @@ clean:
 #  recipe to execute (from 'Makefile', line 26):
 	rm *.bin
 	rm *.o
+	rm $(OBJS)
 
 # Not a target:
 Source/Kernel/Kernel.o:
@@ -444,25 +398,37 @@ Interrupts.o:
 	nasm Source/Include/Cpu/Idt/Interrupts.asm -f elf32 -o Interrupts.o
 
 # Not a target:
+Source/Include/Cpu/Idt/Interrupts/Interrupts.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 Source/Include/TextMode/TextMode.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
+# Not a target:
+Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
 # files hash-table stats:
-# Load=17/1024=2%, Rehash=0, Collisions=0/41=0%
+# Load=19/1024=2%, Rehash=0, Collisions=0/45=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 28 / storage = 370 B / avg = 13 B
-# current buf: size = 8162 B / used = 370 B / count = 28 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 30 / storage = 470 B / avg = 15 B
+# current buf: size = 8162 B / used = 470 B / count = 30 / avg = 15 B
 
-# strcache performance: lookups = 44 / hit rate = 36%
+# strcache performance: lookups = 51 / hit rate = 41%
 # hash-table stats:
-# Load=28/8192=0%, Rehash=0, Collisions=0/44=0%
-# Finished Make data base on Wed Aug 24 12:24:53 2022
+# Load=30/8192=0%, Rehash=0, Collisions=0/51=0%
+# Finished Make data base on Wed Aug 24 14:49:43 2022
 
  
