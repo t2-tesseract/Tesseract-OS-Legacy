@@ -1,4 +1,4 @@
-# How to build Tesseract:
+# How to build Tesseract
 ## Part One: Dependencies
 
 (Linux is recommended for building)

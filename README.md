@@ -1,5 +1,8 @@
-![](Logo.png)
-By T2
+<p align="center">
+    <img src="Logo.png" alt="Logo" width="150" height="150"/>
+</p>
+
+<h3 align="center">By T2</h1>
 
 **WARNING**, This project is at it's earliest stage, there might be bugs or missing functionalities.
 
