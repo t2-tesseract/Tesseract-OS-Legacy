@@ -13,8 +13,7 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
-void TerminalClear(bool resetPos) {
-	// clear the screen
+void TerminalClear(bool ResetPos) {
 	for (int col = 0; col < VgaCols; col ++)
 	{
 		for (int row = 0; row < VgaRows; row ++)
@@ -24,8 +23,7 @@ void TerminalClear(bool resetPos) {
 		}
 	}
 
-	// reset the cursor position if true
-	if (resetPos) {
+	if (ResetPos) {
 		TerminalCol = 0;
 		TerminalRow = 0;
 	}
@@ -123,8 +121,14 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("It is now safe to turn off the computer.");
 		asm volatile("hlt");
     }
-
-	TerminalSetColor(0x0C);
-    TerminalWrite("Unknown command\n");
-    TerminalShell();
+	else if (CompareString(Input, "help") == 0){
+		TerminalSetColor(0x0F);
+		TerminalWrite("shutdown: Halt the CPU\n");
+		TerminalShell();
+	}
+	else{
+		TerminalSetColor(0x0C);
+		TerminalWrite("Unknown command\n");
+		TerminalShell();
+	}
 }
