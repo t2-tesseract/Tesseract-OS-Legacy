@@ -13,6 +13,8 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
+const char* Tab = "    ";
+
 void TerminalClear(bool ResetPos) {
 	for (int col = 0; col < VgaCols; col ++)
 	{
@@ -111,7 +113,7 @@ int CompareString(char String1[], char String2[]) {
 }
 
 void ExecuteCommand(char *Input){
-	TerminalWrite("\n");
+	int i;
 
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
@@ -125,16 +127,24 @@ void ExecuteCommand(char *Input){
     } else if (CompareString(Input, "help") == 0) {
 		// help command
 		TerminalSetColor(0x0A);
+
+		TerminalWrite(Tab);
 		TerminalWrite("Tesseract Help: \n");
 
 		TerminalSetColor(0x0C);
-		TerminalWrite("    shutdown ");
+
+		for (i = 0; i < 3; i = i + 1) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("shutdown ");
 
 		TerminalSetColor(0x0F);
 		TerminalWrite("- Halt the CPU and shutdown the computer.\n\n");
     } else {
 		TerminalSetColor(0x0C);
-		TerminalWrite("Unknown command, make sure it is written correctly.\n");
+
+		TerminalWrite(Tab);
+		TerminalWrite("Unknown command, make sure it is written correctly.\n\n");
 	}
 
 	TerminalShell();
