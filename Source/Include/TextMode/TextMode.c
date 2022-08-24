@@ -13,7 +13,8 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
-void TerminalClear(){
+void TerminalClear(bool resetPos) {
+	// clear the screen
 	for (int col = 0; col < VgaCols; col ++)
 	{
 		for (int row = 0; row < VgaRows; row ++)
@@ -21,6 +22,12 @@ void TerminalClear(){
 			const size_t index = (VgaCols * row) + col;
 			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | ' ';
 		}
+	}
+
+	// reset the cursor position if true
+	if (resetPos) {
+		TerminalCol = 0;
+		TerminalRow = 0;
 	}
 }
 
@@ -76,6 +83,18 @@ void TerminalWrite(const char* String){
 		TerminalPutChar(String[i]);
 }
 
+void TerminalShell() {
+	// create the shell thing
+	TerminalSetColor(0x0B);
+	TerminalWrite("Tesseract ");
+
+	TerminalSetColor(0x02);
+	TerminalWrite("[usr]");
+
+	TerminalSetColor(0x0F);
+	TerminalWrite("$/> ");
+}
+
 int GetCursor(){
     Outb(VgaCtrlRegister, VgaOffsetHigh);
     int Offset = Inb(VgaDataRegister) << 8;
@@ -94,12 +113,17 @@ int CompareString(char String1[], char String2[]) {
 
 void ExecuteCommand(char *Input){
     if (CompareString(Input, "shutdown") == 0) {
-        TerminalWrite("Stopping the CPU. Bye!\n");
-        asm volatile("hlt");
+		// shutdown and clear the screen to show the message
+		TerminalClear(true);
+		TerminalSetColor(0x0C);
+		TerminalWrite("Stopping the CPU.\n\n");
+
+		TerminalSetColor(0x0A);
+		TerminalWrite("It is now safe to turn off the computer.");
+		asm volatile("hlt");
     }
+
 	TerminalSetColor(0x0C);
     TerminalWrite("Unknown command\n");
-    TerminalSetColor(0x0B);
-	TerminalWrite("Tesseract$ ");
-	TerminalSetColor(0x0F);
+    TerminalShell();
 }

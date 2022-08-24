@@ -9,12 +9,13 @@
 #define VgaOffsetLow 0x0f
 #define VgaOffsetHigh 0x0e
 
-void TerminalClear();
+void TerminalClear(bool resetPos);
 void TerminalSetColor(uint8_t Color);
 void TerminalBack();
 void SetCharAtVideoMemory(char Character, int Offset);
 void TerminalPutChar(char c);
 void TerminalWrite(const char* String);
+void TerminalShell();
 int GetCursor();
 int CompareString(char String1[], char String2[]);
 void ExecuteCommand(char *Input);

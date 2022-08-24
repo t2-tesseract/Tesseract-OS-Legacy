@@ -7,19 +7,21 @@ void _start(){
 	InitGdt();
 	InitIdt();
 	InitPic();
-    TerminalClear();
-	TerminalSetColor(0x02);
-	TerminalWrite("Kernel: ");
-	TerminalSetColor(0x0F);
-	TerminalWrite("GDT Loaded!\n");
-	TerminalSetColor(0x02);
-	TerminalWrite("Kernel: ");
-	TerminalSetColor(0x0F);
-	TerminalWrite("IDT Loaded!\n\n");
-	EnableInterrupts;
-	TerminalSetColor(0x0B);
-	TerminalWrite("Tesseract$ ");
-	TerminalSetColor(0x0F);
 
+    TerminalClear(true);
+
+	TerminalSetColor(0x02);
+	TerminalWrite("Kernel: ");
+	TerminalSetColor(0x0F);
+	TerminalWrite("GDT Loaded.\n");
+
+	TerminalSetColor(0x02);
+	TerminalWrite("Kernel: ");
+	TerminalSetColor(0x0F);
+	TerminalWrite("IDT Loaded.\n\n");
+
+	TerminalShell();
+
+	EnableInterrupts;
     while(1);
 }
