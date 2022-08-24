@@ -16,6 +16,19 @@ uint8_t TerminalColor = 0x0F;
 
 const char* Tab = "    ";
 
+void* memmove(void* dstptr, const void* srcptr, size_t size) {
+	unsigned char* dst = (unsigned char*) dstptr;
+	const unsigned char* src = (const unsigned char*) srcptr;
+	if (dst < src) {
+		for (size_t i = 0; i < size; i++)
+			dst[i] = src[i];
+	} else {
+		for (size_t i = size; i != 0; i--)
+			dst[i-1] = src[i-1];
+	}
+	return dstptr;
+}
+
 void TerminalClear(bool ResetPos) {
 	for (int col = 0; col < VgaCols; col ++)
 	{
@@ -50,20 +63,20 @@ void SetCharAtVideoMemory(char Character, int Offset){
 
 void TerminalPutChar(char c){
 	switch (c){
-	case '\n':
-		{
-			TerminalCol = 0;
-			TerminalRow ++;
-			break;
-		}
- 
-	default:
-		{
-			const size_t index = (VgaCols * TerminalRow) + TerminalCol;
-			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | c;
-			TerminalCol ++;
-			break;
-		}
+		case '\n':
+			{
+				TerminalCol = 0;
+				TerminalRow ++;
+				break;
+			}
+	
+		default:
+			{
+				const size_t index = (VgaCols * TerminalRow) + TerminalCol;
+				VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | c;
+				TerminalCol ++;
+				break;
+			}
 	}
 
 	if (TerminalCol >= VgaCols)
@@ -74,8 +87,15 @@ void TerminalPutChar(char c){
 
 	if (TerminalRow >= VgaRows)
 	{
-		TerminalCol = 0;
-		TerminalRow = 0;
+		/*TerminalCol = 0;
+		TerminalRow = 0;*/
+		memmove(VgaBuffer, VgaBuffer + VgaRows, VgaRows * (VgaCols - 1) * sizeof(uint16_t));
+		
+		for (int row = 0; row < VgaRows; row ++)
+		{
+			const size_t index = (VgaCols * row) + TerminalCol;
+			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | ' ';
+		}
 	}
 }
 
