@@ -1,7 +1,5 @@
-<div style="text-align: center;">
-    ![](Logo.png)
-    By T2
-</div>
+![](Logo.png)
+By T2
 
 **WARNING**, This project is at it's earliest stage, there might be bugs or missing functionalities.
 
