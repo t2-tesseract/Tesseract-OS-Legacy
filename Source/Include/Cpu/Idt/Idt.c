@@ -5,6 +5,8 @@
 #include "Idt.h"
 
 void DefaultInt(void);
+void Irq0(void);
+void Irq1(void);
 
 struct IdtPointer KernelIdtPointer;
 struct IdtDescriptor KernelIdt[Size];
@@ -23,6 +25,9 @@ void InitIdt(void){
 
 	for (i = 0; i < Size; i++) 
 		InitIdtDescriptor(0x08, (uint32_t) DefaultInt, Gate, &KernelIdt[i]);
+
+	InitIdtDescriptor(0x08, (uint32_t) Irq0, Gate, &KernelIdt[32]); // Clock
+	InitIdtDescriptor(0x08, (uint32_t) Irq1, Gate, &KernelIdt[33]); // Keyboard
 
 	KernelIdtPointer.limit = Size * 8;
 	KernelIdtPointer.base = Base;

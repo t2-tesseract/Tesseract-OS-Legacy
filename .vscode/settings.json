@@ -4,5 +4,6 @@
         "stdint.h": "c",
         "textmode.h": "c",
         "stdbool.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
