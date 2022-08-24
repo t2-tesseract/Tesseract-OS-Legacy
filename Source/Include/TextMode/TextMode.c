@@ -116,12 +116,14 @@ int CompareString(char String1[], char String2[]) {
 void ExecuteCommand(char *Input){
 	int i;
 
+	// TerminalWrite("\n");
+
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
 		TerminalSetColor(0x0C);
 
 		TerminalWrite(Tab);
-		TerminalWrite("Stopping the CPU.\n\n");
+		TerminalWrite("Stopping the CPU.");
 
 		Delay(2500);
 
@@ -140,7 +142,7 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 2; i = i + 1) {
+		for (i = 0; i < 2; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("shutdown ");
@@ -150,7 +152,7 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 2; i = i + 1) {
+		for (i = 0; i < 2; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("lsv ");
@@ -160,28 +162,66 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 2; i = i + 1) {
+		for (i = 0; i < 2; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("clr ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- Clear the screen.\n");
+		TerminalWrite("- Clear the screen.");
+
+		TerminalWrite("\n\n");
     } else if (CompareString(Input, "lsv") == 0) {
 		TerminalSetColor(0x0E);
 
 		TerminalWrite(Tab);
-		TerminalWrite("1: 80x25 Text mode\n");
+		TerminalWrite("1: 80x25 Text mode");
 		// TerminalWrite("2: 320x200 VGA graphic mode\n");
 
 		// TODO: make a mini shell to select resolution number (ex "1" for 80x25 text mode)
+
+		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "clr") == 0) {
 		TerminalClear(true);
+	} else if (CompareString(Input, "sysfetch") == 0) {
+		char* logo[34] = {
+			"              &&&             \n",
+			"             &&&&&            \n",
+			"            &&&&&&&           \n",
+			"          (&&&&&&&&&#         OS: Tesseract Operating System\n",
+			"         &&&&&&&&&&&&&        \n",
+			"        &&&&&&&&&&&&&&&       Version: 1.0\n",
+			"       &&&&&&&&&&&&&&&&&      Compile Date: todo\n",
+			"      &&&&&&&&&&&&&&&&&&&     \n",
+			"         %%%%%%%%%%%%%        \n",
+			"      %%%%%%%%%%%%%%%%%%%     \n",
+			"   %%%%%%%%%%%%%%%%%%%%%%%%%  \n",
+			"  %%%%%%%%%%%%%%%%%%%%%%%%%%% \n",
+			"    %%%%%%%%%%%%%%%%%%%%%%%   \n",
+			"       %%%%%%%%%%%%%%%%%      \n",
+			"         (%%%%%%%%%%%(        \n",
+			"        (((((%%%%%(((((       Made by: T2\n",
+			"       (((((((((((((((((      (iplux and Kokolor)\n",
+			"      (((((((((((((((((((     \n",
+			"         (((((((((((((        \n",
+			"            (((((((           "
+		};
+
+		TerminalWrite("\n");
+		
+		TerminalSetColor(0x0B);
+		for (i = 0; i < 34; i++) {
+			TerminalWrite(Tab);
+			TerminalWrite(logo[i]);
+		}
+
+		TerminalWrite("\n");
 	} else {
 		TerminalSetColor(0x0C);
 
 		TerminalWrite(Tab);
-		TerminalWrite("Unknown command, make sure it is written correctly.\n\n");
+		TerminalWrite("Unknown command, make sure it is written correctly.");
+		TerminalWrite("\n\n");
 	}
 
 	TerminalShell();
