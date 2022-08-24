@@ -135,14 +135,137 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("It is now safe to turn off the computer.");
 		asm volatile("hlt");
     } else if (CompareString(Input, "help") == 0) {
+		// general commands
+		char *generalCommandsList[] = {
+			"shutdown", 
+			"clr"
+		};
+		char *generalDescList[] = {
+			"Halt the CPU and shutdown the computer.", 
+			"List and set video modes.", 
+			"Clear the screen."
+		};
+		size_t generalArraySize = sizeof(generalCommandsList) / sizeof(generalCommandsList[0]);
+
+		// settings
+		char *settingsCommandsList[] = {
+			"lsv"
+		};
+		char *settingsDescList[] = {
+			"List and set video modes."
+		};
+		size_t settingsArraySize = sizeof(settingsCommandsList) / sizeof(settingsCommandsList[0]);
+
+		// miscellaneous
+		char *miscCommandsList[] = {
+			"sysfetch"
+		};
+		char *miscDescList[] = {
+			"Get system information."
+		};
+		size_t miscArraySize = sizeof(miscCommandsList) / sizeof(miscCommandsList[0]);
+
 		TerminalSetColor(0x0A);
 
 		TerminalWrite(Tab);
 		TerminalWrite("Tesseract Help: \n");
 
-		TerminalSetColor(0x0C);
+		TerminalSetColor(0x02);
 
 		for (i = 0; i < 2; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("General: \n");
+
+		int a = 0;
+
+		while(a != generalArraySize) {
+			int e;
+
+			for (e = 0; e < 3; e++) {
+				TerminalWrite(Tab);
+			}
+
+			TerminalSetColor(0x0C);
+			TerminalWrite(generalCommandsList[a]);
+			TerminalWrite(" ");
+			
+			TerminalSetColor(0x0F);
+			TerminalWrite("- ");
+			TerminalWrite(generalDescList[a]);
+			TerminalWrite("\n");
+
+			a++;
+		};
+
+		TerminalSetColor(0x02);
+
+		for (i = 0; i < 2; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("Settings: \n");
+
+		a = 0;
+
+		while(a != settingsArraySize) {
+			int e;
+
+			for (e = 0; e < 3; e++) {
+				TerminalWrite(Tab);
+			}
+
+			TerminalSetColor(0x0C);
+			TerminalWrite(settingsCommandsList[a]);
+			TerminalWrite(" ");
+			
+			TerminalSetColor(0x0F);
+			TerminalWrite("- ");
+			TerminalWrite(settingsDescList[a]);
+			TerminalWrite("\n");
+
+			a++;
+		};
+
+		TerminalSetColor(0x02);
+
+		for (i = 0; i < 2; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("Miscellaneous: \n");
+
+		a = 0;
+
+		while(a != miscArraySize) {
+			int e;
+
+			for (e = 0; e < 3; e++) {
+				TerminalWrite(Tab);
+			}
+
+			TerminalSetColor(0x0C);
+			TerminalWrite(miscCommandsList[a]);
+			TerminalWrite(" ");
+			
+			TerminalSetColor(0x0F);
+			TerminalWrite("- ");
+			TerminalWrite(miscDescList[a]);
+			TerminalWrite("\n");
+
+			a++;
+		};
+
+		/*for (i = 0; i < 4; i++) {
+			int a;
+
+			for (a = 0; a < 3; a++) {
+				TerminalWrite(Tab);
+			}
+			TerminalWrite(commandsList[i]);
+		}*/
+
+		/*TerminalSetColor(0x0C);
+
+		for (i = 0; i < 3; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("shutdown ");
@@ -152,7 +275,7 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 2; i++) {
+		for (i = 0; i < 3; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("lsv ");
@@ -162,13 +285,25 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		for (i = 0; i < 2; i++) {
+		for (i = 0; i < 3; i++) {
 			TerminalWrite(Tab);
 		}
 		TerminalWrite("clr ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- Clear the screen.");
+		TerminalWrite("- Clear the screen.\n");
+
+		TerminalSetColor(0x0C);
+
+		for (i = 0; i < 3; i++) {
+			TerminalWrite(Tab);
+		}
+
+		TerminalWrite("sysfetch ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("- Get system information.");*/
+
 
 		TerminalWrite("\n\n");
     } else if (CompareString(Input, "lsv") == 0) {
@@ -208,7 +343,7 @@ void ExecuteCommand(char *Input){
 		};
 
 		TerminalWrite("\n");
-		
+
 		TerminalSetColor(0x0B);
 		for (i = 0; i < 34; i++) {
 			TerminalWrite(Tab);
