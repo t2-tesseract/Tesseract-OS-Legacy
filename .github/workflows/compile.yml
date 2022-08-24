@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Compile
 
 on:
   push:
@@ -21,3 +21,6 @@ jobs:
       run: make
     - name: Publish Artifact
       uses: actions/upload-artifact@v2.2.4
+      with:
+          name: IMG
+          path: ./OSImage.img
