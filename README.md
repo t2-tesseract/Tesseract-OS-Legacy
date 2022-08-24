@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    ![Logo](Logo.png "Logo")
+    ![](Logo.png)
     By T2
 </div>
 
