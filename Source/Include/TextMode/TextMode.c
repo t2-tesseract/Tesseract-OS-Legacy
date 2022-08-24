@@ -22,6 +22,8 @@ void TerminalClear(){
 			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | ' ';
 		}
 	}
+	TerminalCol = 0;
+	TerminalRow = 0;
 }
 
 void TerminalSetColor(uint8_t Color){
