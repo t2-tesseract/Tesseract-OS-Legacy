@@ -84,15 +84,16 @@ void TerminalWrite(const char* String){
 }
 
 void TerminalShell() {
-	// create the shell thing
+	Outb(0x3D4, 0x0A);
+	Outb(0x3D5, 0x20);
 	TerminalSetColor(0x0B);
 	TerminalWrite("Tesseract ");
 
 	TerminalSetColor(0x02);
-	TerminalWrite("[usr]");
+	TerminalWrite("[/]");
 
 	TerminalSetColor(0x0F);
-	TerminalWrite("$/> ");
+	TerminalWrite("$ ");
 }
 
 int GetCursor(){
