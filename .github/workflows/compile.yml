@@ -11,10 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: build
-
     steps:
     - uses: actions/checkout@v3
     - name: Install dependencies
@@ -26,4 +22,4 @@ jobs:
     - name: Publish Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
-          path: build/OSImage.img
+          path: /home/runner/work/Tesseract-Operating-System/Tesseract-Operating-System/OSImage.img
