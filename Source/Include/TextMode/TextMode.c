@@ -90,10 +90,10 @@ void TerminalShell() {
 	TerminalWrite("Tesseract ");
 
 	TerminalSetColor(0x02);
-	TerminalWrite("[/]");
+	TerminalWrite("[usr/] ");
 
 	TerminalSetColor(0x0F);
-	TerminalWrite("$ ");
+	TerminalWrite("$> ");
 }
 
 int GetCursor(){
@@ -113,6 +113,8 @@ int CompareString(char String1[], char String2[]) {
 }
 
 void ExecuteCommand(char *Input){
+	TerminalWrite("\n");
+
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
 		TerminalClear(true);
@@ -122,9 +124,20 @@ void ExecuteCommand(char *Input){
 		TerminalSetColor(0x0A);
 		TerminalWrite("It is now safe to turn off the computer.");
 		asm volatile("hlt");
-    }
+    } else if (CompareString(Input, "help") == 0) {
+		// help command
+		TerminalSetColor(0x0A);
+		TerminalWrite("Tesseract Help: \n");
 
-	TerminalSetColor(0x0C);
-    TerminalWrite("Unknown command\n");
-    TerminalShell();
+		TerminalSetColor(0x0C);
+		TerminalWrite("    shutdown ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("- Halt the CPU and shutdown the computer.\n\n");
+    } else {
+		TerminalSetColor(0x0C);
+		TerminalWrite("Unknown command, make sure it is written correctly.\n");
+	}
+
+	TerminalShell();
 }
