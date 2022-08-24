@@ -166,12 +166,12 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("clr ");
 
 		TerminalSetColor(0x0F);
-		TerminalWrite("- Clear the screen.\n\n");
+		TerminalWrite("- Clear the screen.\n");
     } else if (CompareString(Input, "lsv") == 0) {
 		TerminalSetColor(0x0E);
 
 		TerminalWrite(Tab);
-		TerminalWrite("1: 80x25 Text mode\n\n");
+		TerminalWrite("1: 80x25 Text mode\n");
 		// TerminalWrite("2: 320x200 VGA graphic mode\n");
 
 		// TODO: make a mini shell to select resolution number (ex "1" for 80x25 text mode)
