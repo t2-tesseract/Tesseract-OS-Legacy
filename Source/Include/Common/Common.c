@@ -24,12 +24,38 @@ void *MemoryCopy(char *dst, char *src, int n){
 	return p;
 }
 
-size_t StringLength(const char* String){
-    size_t Len = 0;
-    while(String[Len] != '\0')
-        Len++;
-    return Len;
+char* StringNCat(char * String1, char * String2, uint32_t n){
+    char * S = String1;
+    String1 += StringLength(String1);
+    uint32_t SS = __StringLength(String2,n);
+    String1[SS] = '\0';
+    MemoryCopy(String1, String2,SS);
+    return S;
 }
+
+uint32_t StringLength(const char *String) {
+    int i = 0;
+    while (String[i] != (char)0) {
+        ++i;
+    }
+    return i;
+}
+
+uint32_t __StringLength(const char *String, uint32_t MaxLen) {
+    int i = 0;
+    while (String[i] != (char)0) {
+        ++i;
+        if (i==MaxLen) return i;
+    }
+    return i;
+}
+
+// size_t StringLength(const char* String){
+//     size_t Len = 0;
+//     while(String[Len] != '\0')
+//         Len++;
+//     return Len;
+// }
 
 bool Backspace(char Buffer[]){
     int Len = StringLength(Buffer);
