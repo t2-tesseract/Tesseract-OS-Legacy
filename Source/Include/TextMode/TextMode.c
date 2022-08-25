@@ -51,35 +51,36 @@ void TerminalPutChar(char Character, int Offset){
 }
 
 int Scroll(int Offset){
-    // MemoryCopy(
-    //         (char *) (GetOffset(0, 1) + 0xb8000),
-    //         (char *) (GetOffset(0, 0) + 0xb8000),
-    //         80 * (25 - 1) * 2
-    // );
+    MemoryCopy(
+             (uint8_t *) (GetOffset(0, 0) + 0xb8000),
+             (uint8_t *) (GetOffset(0, 1) + 0xb8000),
+             VgaCols * (VgaRows - 1) * 2
+    );
 
-    // for (int Col = 0; Col < 80; Col++) {
-    //     TerminalPutChar(' ', GetOffset(Col, 80 - 1));
-    // }
+    for (int Col = 0; Col < VgaCols; Col++) {
+        TerminalPutChar(' ', GetOffset(Col, VgaRows - 1));
+    }
 
 	// TerminalClear();
-    // return Offset - 2 * 80;
+    return Offset - 2 * VgaCols;
 }
 
 void TerminalWrite(const char* String){
     int Offset = GetCursor();
     int i = 0;
     while (String[i] != 0) {
-        if (Offset >= 25 * 80 * 2) {
+        if (Offset >= VgaRows * VgaCols * 2) {
             Offset = Scroll(Offset);
-			TerminalClear();
-
+			//TerminalClear();
         }
+		
         if (String[i] == '\n') {
             Offset = MoveOffsetToNewLine(Offset);
         } else {
             TerminalPutChar(String[i], Offset);
             Offset += 2;
         }
+
         i++;
     }
 

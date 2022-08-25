@@ -10,13 +10,13 @@ void _start(){
 
     TerminalClear();
 
-	// DebugWrite("GDT Loaded.\n", 0);
-	// DebugWrite("IDT Loaded.\n\n", 0);
+	DebugWrite("GDT Loaded.\n", 0);
+	DebugWrite("IDT Loaded.\n\n", 0);
 
-	// DebugWrite("Test kernel msg\n", 0);
-	// DebugWrite("Test warning msg\n", 1);
-	// DebugWrite("Test error msg\n", 2);
-	// DebugWrite("Test log msg\n\n", 3);
+	DebugWrite("Test kernel msg\n", 0);
+	DebugWrite("Test warning msg\n", 1);
+	DebugWrite("Test error msg\n", 2);
+	DebugWrite("Test log msg\n\n", 3);
 
 	TerminalShell();
 
