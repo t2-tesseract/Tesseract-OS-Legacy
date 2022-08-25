@@ -10,15 +10,14 @@ void _start(){
 
     TerminalClear(true);
 
-	TerminalSetColor(0x02);
-	TerminalWrite("Kernel: ");
-	TerminalSetColor(0x0F);
-	TerminalWrite("GDT Loaded.\n");
+	DebugWrite("GDT Loaded.\n", 0);
+	DebugWrite("IDT Loaded.\n\n", 0);
 
-	TerminalSetColor(0x02);
-	TerminalWrite("Kernel: ");
-	TerminalSetColor(0x0F);
-	TerminalWrite("IDT Loaded.\n\n");
+	// tests
+	DebugWrite("Test kernel msg\n", 0);
+	DebugWrite("Test warning msg\n", 1);
+	DebugWrite("Test error msg\n", 2);
+	DebugWrite("Test log msg\n\n", 3);
 
 	TerminalShell();
 

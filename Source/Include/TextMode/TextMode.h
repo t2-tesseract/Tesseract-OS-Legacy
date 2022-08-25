@@ -15,6 +15,7 @@ void TerminalBack();
 void SetCharAtVideoMemory(char Character, int Offset);
 void TerminalPutChar(char c);
 void TerminalWrite(const char* String);
+void DebugWrite(const char* String, int Mode);
 void TerminalShell();
 int GetCursor();
 int CompareString(char String1[], char String2[]);

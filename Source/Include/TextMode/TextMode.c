@@ -93,6 +93,38 @@ void TerminalWrite(const char* String){
 		TerminalPutChar(String[i]);
 }
 
+void DebugWrite(const char* String, int Mode) {
+	if (Mode == 0) {
+		//kernel
+		TerminalSetColor(0x02);
+		TerminalWrite("Kernel: ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite(String);
+	} else if (Mode == 1) {
+		//warning
+		TerminalSetColor(0x0E);
+		TerminalWrite("Warning: ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite(String);
+	} else if (Mode == 2) {
+		//error
+		TerminalSetColor(0x04);
+		TerminalWrite("Error: ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite(String);
+	} else {
+		//log 
+		TerminalSetColor(0x08);
+		TerminalWrite("Log: ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite(String);
+	}
+}
+
 void TerminalShell() {
 	Outb(0x3D4, 0x0A);
 	Outb(0x3D5, 0x20);
@@ -133,17 +165,10 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0C);
 
-		TerminalWrite(Tab);
-		TerminalWrite("Stopping the CPU.");
+		// TerminalWrite(Tab);
+		TerminalWrite("Stopping the CPU.\nSee you soon!");
 
 		Delay(2500);
-
-		TerminalClear(true);
-
-		Delay(1250);
-
-		TerminalSetColor(0x0A);
-		TerminalWrite("It is now safe to turn off the computer.");
 
 		Outw(0xB004, 0x2000);
 		Outw(0x604, 0x2000);
