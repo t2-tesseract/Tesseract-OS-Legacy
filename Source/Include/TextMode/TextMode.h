@@ -9,7 +9,6 @@
 #define VgaOffsetLow 0x0f
 #define VgaOffsetHigh 0x0e
 
-void* memmove(void* dstptr, const void* srcptr, size_t size);
 void TerminalClear(bool resetPos);
 void TerminalSetColor(uint8_t Color);
 void TerminalBack();

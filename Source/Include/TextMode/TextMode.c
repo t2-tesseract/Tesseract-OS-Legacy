@@ -14,22 +14,12 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
+extern void ReadCr0();
+extern void WriteCr0();
+
 const char* Tab = "    ";
 
-void* memmove(void* dstptr, const void* srcptr, size_t size) {
-	unsigned char* dst = (unsigned char*) dstptr;
-	const unsigned char* src = (const unsigned char*) srcptr;
-	if (dst < src) {
-		for (size_t i = 0; i < size; i++)
-			dst[i] = src[i];
-	} else {
-		for (size_t i = size; i != 0; i--)
-			dst[i-1] = src[i-1];
-	}
-	return dstptr;
-}
-
-void TerminalClear(bool ResetPos) {
+void TerminalClear(bool ResetPos){
 	for (int col = 0; col < VgaCols; col ++)
 	{
 		for (int row = 0; row < VgaRows; row ++)
@@ -87,10 +77,9 @@ void TerminalPutChar(char c){
 
 	if (TerminalRow >= VgaRows)
 	{
-		/*TerminalCol = 0;
-		TerminalRow = 0;*/
-		memmove(VgaBuffer, VgaBuffer + VgaRows, VgaRows * (VgaCols - 1) * sizeof(uint16_t));
-		
+		TerminalCol = 0;
+		TerminalRow = 0;
+
 		for (int row = 0; row < VgaRows; row ++)
 		{
 			const size_t index = (VgaCols * row) + TerminalCol;
@@ -140,6 +129,8 @@ void ExecuteCommand(char *Input){
 
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
+		TerminalClear(true);
+
 		TerminalSetColor(0x0C);
 
 		TerminalWrite(Tab);
@@ -153,7 +144,11 @@ void ExecuteCommand(char *Input){
 
 		TerminalSetColor(0x0A);
 		TerminalWrite("It is now safe to turn off the computer.");
-		asm volatile("hlt");
+
+		Outw(0xB004, 0x2000);
+		Outw(0x604, 0x2000);
+		Outw(0x4004, 0x3400);
+		asm("hlt");
     } else if (CompareString(Input, "help") == 0) {
 		// general commands
 		char *generalCommandsList[] = {
@@ -268,60 +263,10 @@ void ExecuteCommand(char *Input){
 			TerminalSetColor(0x0F);
 			TerminalWrite("- ");
 			TerminalWrite(miscDescList[a]);
-			TerminalWrite("\n");
+			TerminalWrite("");
 
 			a++;
 		};
-
-		/*for (i = 0; i < 4; i++) {
-			int a;
-
-			for (a = 0; a < 3; a++) {
-				TerminalWrite(Tab);
-			}
-			TerminalWrite(commandsList[i]);
-		}*/
-
-		/*TerminalSetColor(0x0C);
-
-		for (i = 0; i < 3; i++) {
-			TerminalWrite(Tab);
-		}
-		TerminalWrite("shutdown ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("- Halt the CPU and shutdown the computer.\n");
-
-		TerminalSetColor(0x0C);
-
-		for (i = 0; i < 3; i++) {
-			TerminalWrite(Tab);
-		}
-		TerminalWrite("lsv ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("- List and set video modes.\n");
-
-		TerminalSetColor(0x0C);
-
-		for (i = 0; i < 3; i++) {
-			TerminalWrite(Tab);
-		}
-		TerminalWrite("clr ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("- Clear the screen.\n");
-
-		TerminalSetColor(0x0C);
-
-		for (i = 0; i < 3; i++) {
-			TerminalWrite(Tab);
-		}
-
-		TerminalWrite("sysfetch ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("- Get system information.");*/
 
 
 		TerminalWrite("\n\n");
