@@ -71,6 +71,7 @@ void TerminalWrite(const char* String){
     while (String[i] != 0) {
         if (Offset >= VgaRows * VgaCols * 2) {
             Offset = Scroll(Offset);
+			Delay(10);
 			//TerminalClear();
         }
 		
@@ -105,7 +106,7 @@ void TerminalBack(){
     SetCursor(NewCursor);
 }
 
-void DebugWrite(const char* String, int Mode){
+void DebugWrite(const char* String, int Mode, bool toEmuConsole){
 	if (Mode == 0) {
 		//kernel
 		TerminalSetColor(0x02);
@@ -135,6 +136,13 @@ void DebugWrite(const char* String, int Mode){
 		TerminalSetColor(0x0F);
 		TerminalWrite(String);
 	}
+
+	/*if (toEmuConsole) {
+		while (*String) {
+			i686_outb(0xE9, *String);
+			String++;
+		} 
+	}*/
 }
 
 void TerminalShell(){
@@ -188,10 +196,12 @@ void ExecuteCommand(char *Input){
 
 		// settings
 		char *settingsCommandsList[] = {
-			"lsv"
+			"lv",
+			"sv"
 		};
 		char *settingsDescList[] = {
-			"List and set video modes."
+			"List video modes.",
+			"Set a video mode"
 		};
 		size_t settingsArraySize = sizeof(settingsCommandsList) / sizeof(settingsCommandsList[0]);
 
@@ -295,15 +305,34 @@ void ExecuteCommand(char *Input){
 
 
 		TerminalWrite("\n\n");
-    } else if (CompareString(Input, "lsv") == 0) {
-		TerminalSetColor(0x0E);
+    } else if (CompareString(Input, "lv") == 0) {
+		char *res[] = {"80x25 Text Mode"};
+		size_t arraySize = sizeof(res) / sizeof(res[0]);
+		int a = 0;
+
+		TerminalSetColor(0x0A);
 
 		TerminalWrite(Tab);
-		TerminalWrite("1: 80x25 Text mode");
+		TerminalWrite("Resolutions available:\n");
+
+		TerminalSetColor(0x0E);
+
+		while(a != arraySize) {
+			for (i = 0; i < 2; i++) {
+				TerminalWrite(Tab);
+			}
+
+			TerminalWrite("- ");
+			TerminalWrite(res[a]);
+			TerminalWrite("\n");
+
+			a++;
+		}
 		// TerminalWrite("2: 320x200 VGA graphic mode\n");
 
-		// TODO: make a mini shell to select resolution number (ex "1" for 80x25 text mode)
-
+		TerminalWrite("\n\n");
+	} else if (CompareString(Input, "sv") == 0) {
+		// TODO: make so that it can have an argument
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "clr") == 0) {
 		TerminalClear();
@@ -339,7 +368,7 @@ void ExecuteCommand(char *Input){
 			TerminalWrite(logo[i]);
 		}
 
-		TerminalWrite("\n");
+		TerminalWrite("\n\n");
 	} else {
 		TerminalSetColor(0x0C);
 

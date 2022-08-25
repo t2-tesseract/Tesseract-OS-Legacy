@@ -23,7 +23,7 @@ RealMode.o:
 	nasm Source/Include/Real/RealMode.asm -f elf32 -o RealMode.o
 
 run: OSImage.img
-	qemu-system-i386 -fda OSImage.img
+	qemu-system-i386 -debugcon stdio -fda OSImage.img
 
 clean:
 	rm *.bin
