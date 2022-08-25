@@ -5,7 +5,8 @@
         "textmode.h": "c",
         "stdbool.h": "c",
         "graphics.h": "c",
-        "gdt.h": "c"
+        "gdt.h": "c",
+        "string": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

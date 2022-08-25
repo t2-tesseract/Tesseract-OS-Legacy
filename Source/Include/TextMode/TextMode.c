@@ -14,25 +14,80 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
-extern void ReadCr0();
-extern void WriteCr0();
-
 const char* Tab = "    ";
 
-void TerminalClear(bool ResetPos){
-	for (int col = 0; col < VgaCols; col ++)
-	{
-		for (int row = 0; row < VgaRows; row ++)
-		{
-			const size_t index = (VgaCols * row) + col;
-			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | ' ';
-		}
-	}
+void SetCursor(int Offset){
+    Offset /= 2;
+    Outb(VgaCtrlRegister, VgaOffsetHigh);
+    Outb(VgaDataRegister, (unsigned char) (Offset >> 8));
+    Outb(VgaCtrlRegister, VgaOffsetLow);
+    Outb(VgaDataRegister, (unsigned char) (Offset & 0xff));
+}
 
-	if (ResetPos) {
-		TerminalCol = 0;
-		TerminalRow = 0;
-	}
+int GetCursor(){
+    Outb(VgaCtrlRegister, VgaOffsetHigh);
+    int Offset = Inb(VgaDataRegister) << 8;
+    Outb(VgaCtrlRegister, VgaOffsetLow);
+    Offset += Inb(VgaDataRegister);
+    return Offset * 2;
+}
+
+int GetOffset(int Col, int Row){
+    return 2 * (Row * 80 + Col);
+}
+
+int GetRowFromOffset(int Offset){
+    return Offset / (2 * 80);
+}
+
+int MoveOffsetToNewLine(int Offset){
+    return GetOffset(0, GetRowFromOffset(Offset) + 1);
+}
+
+void TerminalPutChar(char Character, int Offset){
+    unsigned char *VideoMemory = (unsigned char *) 0xb8000;
+    VideoMemory[Offset] = Character;
+    VideoMemory[Offset + 1] = TerminalColor;
+}
+
+int Scroll(int Offset){
+    MemoryCopy(
+            (char *) (GetOffset(0, 1) + 0xb8000),
+            (char *) (GetOffset(0, 0) + 0xb8000),
+            80 * (25 - 1) * 2
+    );
+
+    for (int Col = 0; Col < 80; Col++) {
+        TerminalPutChar(' ', GetOffset(Col, 80 - 1));
+    }
+
+    return Offset - 2 * 80;
+}
+
+void TerminalWrite(const char* String){
+    int Offset = GetCursor();
+    int i = 0;
+    while (String[i] != 0) {
+        if (Offset >= 25 * 80 * 2) {
+            Offset = Scroll(Offset);
+        }
+        if (String[i] == '\n') {
+            Offset = MoveOffsetToNewLine(Offset);
+        } else {
+            TerminalPutChar(String[i], Offset);
+            Offset += 2;
+        }
+        i++;
+    }
+
+    SetCursor(Offset);
+}
+
+void TerminalClear(){
+    for (int i = 0; i < 80 * 25; ++i) {
+        TerminalPutChar(' ', i * 2);
+    }
+    SetCursor(GetOffset(0, 0));
 }
 
 void TerminalSetColor(uint8_t Color){
@@ -40,60 +95,12 @@ void TerminalSetColor(uint8_t Color){
 }
 
 void TerminalBack(){
-	TerminalCol -= 1;
-	TerminalPutChar(' ');
-	TerminalCol -= 1;
+	int NewCursor = GetCursor() - 2;
+    TerminalPutChar(' ', NewCursor);
+    SetCursor(NewCursor);
 }
 
-void SetCharAtVideoMemory(char Character, int Offset){
-    unsigned char *VideoMemory = (unsigned char *) 0xb8000;
-    VideoMemory[Offset] = Character;
-    VideoMemory[Offset + 1] = 0x0F;
-}
-
-void TerminalPutChar(char c){
-	switch (c){
-		case '\n':
-			{
-				TerminalCol = 0;
-				TerminalRow ++;
-				break;
-			}
-	
-		default:
-			{
-				const size_t index = (VgaCols * TerminalRow) + TerminalCol;
-				VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | c;
-				TerminalCol ++;
-				break;
-			}
-	}
-
-	if (TerminalCol >= VgaCols)
-	{
-		TerminalCol = 0;
-		TerminalRow ++;
-	}
-
-	if (TerminalRow >= VgaRows)
-	{
-		TerminalCol = 0;
-		TerminalRow = 0;
-
-		for (int row = 0; row < VgaRows; row ++)
-		{
-			const size_t index = (VgaCols * row) + TerminalCol;
-			VgaBuffer[index] = ((uint16_t)TerminalColor << 8) | ' ';
-		}
-	}
-}
-
-void TerminalWrite(const char* String){
-	for (size_t i = 0; String[i] != '\0'; i ++)
-		TerminalPutChar(String[i]);
-}
-
-void DebugWrite(const char* String, int Mode) {
+void DebugWrite(const char* String, int Mode){
 	if (Mode == 0) {
 		//kernel
 		TerminalSetColor(0x02);
@@ -125,9 +132,7 @@ void DebugWrite(const char* String, int Mode) {
 	}
 }
 
-void TerminalShell() {
-	Outb(0x3D4, 0x0A);
-	Outb(0x3D5, 0x20);
+void TerminalShell(){
 	TerminalSetColor(0x0B);
 	TerminalWrite("Tesseract ");
 
@@ -136,14 +141,6 @@ void TerminalShell() {
 
 	TerminalSetColor(0x0F);
 	TerminalWrite("$> ");
-}
-
-int GetCursor(){
-    Outb(VgaCtrlRegister, VgaOffsetHigh);
-    int Offset = Inb(VgaDataRegister) << 8;
-    Outb(VgaCtrlRegister, VgaOffsetLow);
-    Offset += Inb(VgaDataRegister);
-    return Offset * 2;
 }
 
 int CompareString(char String1[], char String2[]) {
@@ -157,11 +154,9 @@ int CompareString(char String1[], char String2[]) {
 void ExecuteCommand(char *Input){
 	int i;
 
-	// TerminalWrite("\n");
-
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
-		TerminalClear(true);
+		TerminalClear();
 
 		TerminalSetColor(0x0C);
 
@@ -306,7 +301,7 @@ void ExecuteCommand(char *Input){
 
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "clr") == 0) {
-		TerminalClear(true);
+		TerminalClear();
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		char* logo[34] = {
 			"              &&&             \n",

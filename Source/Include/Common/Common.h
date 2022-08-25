@@ -6,15 +6,8 @@
 #define DisableInterrupts asm("cli"::)
 #define EnableInterrupts asm("sti"::)
 
-#define Outb(port,value) \
-	asm volatile ("outb %%al, %%dx" :: "d" (port), "a" (value));
-
-#define Inb(port) ({    \
-	unsigned char _v;       \
-	asm volatile ("inb %%dx, %%al" : "=a" (_v) : "d" (port)); \
-        _v;     \
-})
-
+unsigned char Inb(unsigned short port);
+void Outb(unsigned short port, unsigned char data);
 void Outw(unsigned short port, unsigned short value);
 static inline void IoWait(void);
 void Delay(uint16_t Ms);

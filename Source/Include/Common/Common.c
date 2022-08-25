@@ -4,6 +4,16 @@
 #include <stdbool.h>
 #include "Common.h"
 
+unsigned char Inb(unsigned short port) {
+    unsigned char result;
+    __asm__("in %%dx, %%al" : "=a" (result) : "d" (port));
+    return result;
+}
+
+void Outb(unsigned short port, unsigned char data) {
+    __asm__("out %%al, %%dx" : : "a" (data), "d" (port));
+}
+
 void Outw(unsigned short port, unsigned short value){
     asm volatile ("outw %%ax,%%dx": :"dN"(port), "a"(value));
 } 
@@ -18,10 +28,10 @@ void Delay(uint16_t Ms){
 }
 
 void *MemoryCopy(char *dst, char *src, int n){
-	char *p = dst;
-	while (n--)
-		*dst++ = *src++;
-	return p;
+	int i;
+    for (i = 0; i < n; i++) {
+        *(dst + i) = *(src + i);
+    }
 }
 
 char* StringNCat(char * String1, char * String2, uint32_t n){
@@ -33,13 +43,13 @@ char* StringNCat(char * String1, char * String2, uint32_t n){
     return S;
 }
 
-uint32_t StringLength(const char *String) {
-    int i = 0;
-    while (String[i] != (char)0) {
-        ++i;
-    }
-    return i;
-}
+// uint32_t StringLength(const char *String) {
+//     int i = 0;
+//     while (String[i] != (char)0) {
+//         ++i;
+//     }
+//     return i;
+// }
 
 uint32_t __StringLength(const char *String, uint32_t MaxLen) {
     int i = 0;
@@ -50,12 +60,12 @@ uint32_t __StringLength(const char *String, uint32_t MaxLen) {
     return i;
 }
 
-// size_t StringLength(const char* String){
-//     size_t Len = 0;
-//     while(String[Len] != '\0')
-//         Len++;
-//     return Len;
-// }
+size_t StringLength(const char* String){
+    size_t Len = 0;
+    while(String[Len] != '\0')
+        Len++;
+    return Len;
+}
 
 bool Backspace(char Buffer[]){
     int Len = StringLength(Buffer);
