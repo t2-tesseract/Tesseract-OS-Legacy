@@ -51,17 +51,18 @@ void TerminalPutChar(char Character, int Offset){
 }
 
 int Scroll(int Offset){
-    MemoryCopy(
-            (char *) (GetOffset(0, 1) + 0xb8000),
-            (char *) (GetOffset(0, 0) + 0xb8000),
-            80 * (25 - 1) * 2
-    );
+    // MemoryCopy(
+    //         (char *) (GetOffset(0, 1) + 0xb8000),
+    //         (char *) (GetOffset(0, 0) + 0xb8000),
+    //         80 * (25 - 1) * 2
+    // );
 
-    for (int Col = 0; Col < 80; Col++) {
-        TerminalPutChar(' ', GetOffset(Col, 80 - 1));
-    }
+    // for (int Col = 0; Col < 80; Col++) {
+    //     TerminalPutChar(' ', GetOffset(Col, 80 - 1));
+    // }
 
-    return Offset - 2 * 80;
+	// TerminalClear();
+    // return Offset - 2 * 80;
 }
 
 void TerminalWrite(const char* String){
@@ -70,6 +71,8 @@ void TerminalWrite(const char* String){
     while (String[i] != 0) {
         if (Offset >= 25 * 80 * 2) {
             Offset = Scroll(Offset);
+			TerminalClear();
+
         }
         if (String[i] == '\n') {
             Offset = MoveOffsetToNewLine(Offset);
@@ -88,6 +91,7 @@ void TerminalClear(){
         TerminalPutChar(' ', i * 2);
     }
     SetCursor(GetOffset(0, 0));
+	SetCursor(0);
 }
 
 void TerminalSetColor(uint8_t Color){
