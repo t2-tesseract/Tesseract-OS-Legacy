@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 26 17:10:48 2022
+# Make data base, printed on Fri Aug 26 17:12:19 2022
 
 # Variables
 
@@ -274,7 +274,6 @@ VSCODE_IPC_HOOK = /run/user/1000/vscode-116eb7f4-1.70.2-main.sock
 TERM = xterm-256color
 # environment
 SNAP_NAME = code
- 
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/105/usr/share/glib-2.0/schemas
 # environment
@@ -288,6 +287,7 @@ XCURSOR_SIZE = 24
 # environment
 SNAP_VERSION = e4503b30
 # default
+ 
 SUFFIXES := 
 # environment
 TARGET = i686-elf
@@ -371,7 +371,7 @@ Source/Include/Graphics/Graphics.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-26 12:45:06.181305214
+#  Last modified 2022-08-26 17:10:52.512049899
 #  File has been updated.
 #  Successfully updated.
 
@@ -383,6 +383,7 @@ clean:
 	rm *.bin
 	rm *.o
 	rm *.img
+	rm *.iso
 	rm $(OBJS)
 
 # Not a target:
@@ -495,7 +496,8 @@ Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o:
 
 # strcache performance: lookups = 56 / hit rate = 32%
 # hash-table stats:
+ 
 # Load=38/8192=0%, Rehash=0, Collisions=0/56=0%
-# Finished Make data base on Fri Aug 26 17:10:48 2022
+# Finished Make data base on Fri Aug 26 17:12:19 2022
 
  

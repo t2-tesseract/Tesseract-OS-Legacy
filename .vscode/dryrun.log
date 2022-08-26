@@ -1,5 +1,6 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/kokolor/Dev/OSDev/Tesseract-Operating-System'
+ 
 nasm Source/Kernel/KernelEntry.asm -f elf -o KernelEntry.o
 nasm Source/Include/Cpu/Idt/Interrupts.asm -f elf32 -o Interrupts.o
 nasm Source/Include/Real/RealMode.asm -f elf32 -o RealMode.o
