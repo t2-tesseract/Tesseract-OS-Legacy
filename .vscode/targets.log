@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 26 12:47:23 2022
+# Make data base, printed on Fri Aug 26 17:10:48 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ GTK_RC_FILES = /etc/gtk/gtkrc:/home/kokolor/.gtkrc:/home/kokolor/.config/gtkrc
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-KONSOLE_DBUS_SERVICE = :1.67
+KONSOLE_DBUS_SERVICE = :1.66
 # environment
 LC_NAME = fr_FR.UTF-8
 # environment
@@ -93,7 +93,7 @@ CURDIR := /home/kokolor/Dev/OSDev/Tesseract-Operating-System
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 1)
-SRCS := Source/Include/Common/Common.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Idt.c Source/Include/Cpu/Idt/Interrupts/Interrupts.c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c Source/Include/Graphics/Graphics.c Source/Include/TextMode/TextMode.c Source/Include/Vfs/Vfs.c Source/Kernel/Kernel.c 
+SRCS := Source/Include/Common/Common.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Idt.c Source/Include/Cpu/Idt/Interrupts/Interrupts.c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c Source/Include/Graphics/Graphics.c Source/Include/TextMode/TextMode.c Source/Include/TextMode/Printk.c Source/Include/Vfs/Vfs.c Source/Kernel/Kernel.c 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -123,13 +123,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 2570
+VSCODE_PID = 2901
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/kokolor-aspiree5575g:@/tmp/.ICE-unix/954,unix/kokolor-aspiree5575g:/tmp/.ICE-unix/954
+SESSION_MANAGER = local/kokolor-aspiree5575g:@/tmp/.ICE-unix/896,unix/kokolor-aspiree5575g:/tmp/.ICE-unix/896
 # automatic
 *F = $(notdir $*)
 # environment
@@ -145,7 +145,7 @@ VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePac
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile (from 'Makefile', line 2)
-OBJS := Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
+OBJS := Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/TextMode/Printk.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
 # makefile
 SHELL = /bin/sh
 # environment
@@ -225,7 +225,7 @@ XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := Kernel.bin
 # environment
-SYSTEMD_EXEC_PID = 849
+SYSTEMD_EXEC_PID = 790
 # environment
 DISPLAY = :0
 # environment
@@ -274,6 +274,7 @@ VSCODE_IPC_HOOK = /run/user/1000/vscode-116eb7f4-1.70.2-main.sock
 TERM = xterm-256color
 # environment
 SNAP_NAME = code
+ 
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/105/usr/share/glib-2.0/schemas
 # environment
@@ -287,7 +288,6 @@ XCURSOR_SIZE = 24
 # environment
 SNAP_VERSION = e4503b30
 # default
- 
 SUFFIXES := 
 # environment
 TARGET = i686-elf
@@ -304,7 +304,7 @@ SNAP_COMMON = /var/snap/code/common
 # environment
 LS_OPTIONS = --color=auto
 # environment
-SHELL_SESSION_ID = c2b4b373fec04fdfb82bcf9907ae8c9f
+SHELL_SESSION_ID = 71df95fa1d80438cb730897ffcf2bc48
 # environment
 KDE_SESSION_VERSION = 5
 # default
@@ -330,9 +330,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2057, inode 67814893): 19 files, no impossibilities.
+# . (device 2057, inode 67814893): 13 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -343,7 +343,13 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
-Kernel.bin: KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
+# Not a target:
+Source/Include/TextMode/Printk.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Kernel.bin: KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/TextMode/Printk.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -477,19 +483,19 @@ Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=21/1024=2%, Rehash=0, Collisions=0/50=0%
+# Load=22/1024=2%, Rehash=0, Collisions=0/52=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 37 / storage = 556 B / avg = 15 B
-# current buf: size = 8162 B / used = 556 B / count = 37 / avg = 15 B
+# strcache buffers: 1 (0) / strings = 38 / storage = 589 B / avg = 15 B
+# current buf: size = 8162 B / used = 589 B / count = 38 / avg = 15 B
 
-# strcache performance: lookups = 61 / hit rate = 39%
+# strcache performance: lookups = 56 / hit rate = 32%
 # hash-table stats:
-# Load=37/8192=0%, Rehash=0, Collisions=0/61=0%
-# Finished Make data base on Fri Aug 26 12:47:23 2022
+# Load=38/8192=0%, Rehash=0, Collisions=0/56=0%
+# Finished Make data base on Fri Aug 26 17:10:48 2022
 
  

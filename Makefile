@@ -29,4 +29,5 @@ clean:
 	rm *.bin
 	rm *.o
 	rm *.img
+	rm *.iso
 	rm $(OBJS)

@@ -1,6 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/kokolor/Dev/OSDev/Tesseract-Operating-System'
- 
 nasm Source/Kernel/KernelEntry.asm -f elf -o KernelEntry.o
 nasm Source/Include/Cpu/Idt/Interrupts.asm -f elf32 -o Interrupts.o
 nasm Source/Include/Real/RealMode.asm -f elf32 -o RealMode.o
@@ -11,8 +10,9 @@ gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protect
 gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c -o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o
 gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Include/Graphics/Graphics.c -o Source/Include/Graphics/Graphics.o
 gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Include/TextMode/TextMode.c -o Source/Include/TextMode/TextMode.o
+gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Include/TextMode/Printk.c -o Source/Include/TextMode/Printk.o
 gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Include/Vfs/Vfs.c -o Source/Include/Vfs/Vfs.o
 gcc -g -ffreestanding -ISource/ -Wall -Wextra -fno-exceptions -fno-stack-protector -m32 -fno-pie -c Source/Kernel/Kernel.c -o Source/Kernel/Kernel.o
-ld -o Kernel.bin -Ttext 0x1000 KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o --oformat binary -m elf_i386
+ld -o Kernel.bin -Ttext 0x1000 KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/TextMode/Printk.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o --oformat binary -m elf_i386
 make: Leaving directory '/home/kokolor/Dev/OSDev/Tesseract-Operating-System'
  
