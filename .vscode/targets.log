@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Aug 24 22:29:07 2022
+# Make data base, printed on Fri Aug 26 12:47:23 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ GTK_RC_FILES = /etc/gtk/gtkrc:/home/kokolor/.gtkrc:/home/kokolor/.config/gtkrc
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-KONSOLE_DBUS_SERVICE = :1.62
+KONSOLE_DBUS_SERVICE = :1.67
 # environment
 LC_NAME = fr_FR.UTF-8
 # environment
@@ -31,7 +31,7 @@ LC_NUMERIC = fr_FR.UTF-8
 # environment
 VSCODE_CWD = /home/kokolor/Dev/OSDev/Tesseract-Operating-System
 # environment
-WINDOWID = 83886087
+WINDOWID = 90177543
 # environment
 LESS_TERMCAP_me = [0m
 # environment
@@ -93,7 +93,7 @@ CURDIR := /home/kokolor/Dev/OSDev/Tesseract-Operating-System
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 1)
-SRCS := Source/Include/Common/Common.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Idt.c Source/Include/Cpu/Idt/Interrupts/Interrupts.c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c Source/Include/Graphics/Graphics.c Source/Include/TextMode/TextMode.c Source/Kernel/Kernel.c 
+SRCS := Source/Include/Common/Common.c Source/Include/Cpu/Gdt/Gdt.c Source/Include/Cpu/Idt/Idt.c Source/Include/Cpu/Idt/Interrupts/Interrupts.c Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.c Source/Include/Graphics/Graphics.c Source/Include/TextMode/TextMode.c Source/Include/Vfs/Vfs.c Source/Kernel/Kernel.c 
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -123,13 +123,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 1907
+VSCODE_PID = 2570
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/kokolor-aspiree5575g:@/tmp/.ICE-unix/911,unix/kokolor-aspiree5575g:/tmp/.ICE-unix/911
+SESSION_MANAGER = local/kokolor-aspiree5575g:@/tmp/.ICE-unix/954,unix/kokolor-aspiree5575g:/tmp/.ICE-unix/954
 # automatic
 *F = $(notdir $*)
 # environment
@@ -145,7 +145,7 @@ VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{"*":"fr"},"_languagePac
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile (from 'Makefile', line 2)
-OBJS := Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Kernel/Kernel.o
+OBJS := Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
 # makefile
 SHELL = /bin/sh
 # environment
@@ -225,7 +225,7 @@ XDG_VTNR = 1
 # makefile
 .DEFAULT_GOAL := Kernel.bin
 # environment
-SYSTEMD_EXEC_PID = 805
+SYSTEMD_EXEC_PID = 849
 # environment
 DISPLAY = :0
 # environment
@@ -287,6 +287,7 @@ XCURSOR_SIZE = 24
 # environment
 SNAP_VERSION = e4503b30
 # default
+ 
 SUFFIXES := 
 # environment
 TARGET = i686-elf
@@ -303,7 +304,7 @@ SNAP_COMMON = /var/snap/code/common
 # environment
 LS_OPTIONS = --color=auto
 # environment
-SHELL_SESSION_ID = bada32cab63842c892bc94a0468149a9
+SHELL_SESSION_ID = c2b4b373fec04fdfb82bcf9907ae8c9f
 # environment
 KDE_SESSION_VERSION = 5
 # default
@@ -329,9 +330,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 2057, inode 67814893): 16 files, no impossibilities.
+# . (device 2057, inode 67814893): 19 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -342,12 +343,18 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # 1 implicit rules, 0 (0.0%) terminal.
 # Files
 
-Kernel.bin: KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Kernel/Kernel.o
+Kernel.bin: KernelEntry.o Interrupts.o RealMode.o Source/Include/Common/Common.o Source/Include/Cpu/Gdt/Gdt.o Source/Include/Cpu/Idt/Idt.o Source/Include/Cpu/Idt/Interrupts/Interrupts.o Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o Source/Include/Graphics/Graphics.o Source/Include/TextMode/TextMode.o Source/Include/Vfs/Vfs.o Source/Kernel/Kernel.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 8):
 	ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386
+
+# Not a target:
+Source/Include/Vfs/Vfs.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 Source/Include/Graphics/Graphics.o:
@@ -358,7 +365,7 @@ Source/Include/Graphics/Graphics.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 19:26:08.782010469
+#  Last modified 2022-08-26 12:45:06.181305214
 #  File has been updated.
 #  Successfully updated.
 
@@ -442,7 +449,7 @@ run: OSImage.img
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 26):
-	qemu-system-i386 -fda OSImage.img
+	qemu-system-i386 -debugcon stdio -fda OSImage.img
 
 Interrupts.o:
 #  Implicit rule search has not been done.
@@ -470,19 +477,19 @@ Source/Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=20/1024=2%, Rehash=0, Collisions=0/48=0%
+# Load=21/1024=2%, Rehash=0, Collisions=0/50=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 33 / storage = 503 B / avg = 15 B
-# current buf: size = 8162 B / used = 503 B / count = 33 / avg = 15 B
+# strcache buffers: 1 (0) / strings = 37 / storage = 556 B / avg = 15 B
+# current buf: size = 8162 B / used = 556 B / count = 37 / avg = 15 B
 
-# strcache performance: lookups = 57 / hit rate = 42%
+# strcache performance: lookups = 61 / hit rate = 39%
 # hash-table stats:
-# Load=33/8192=0%, Rehash=0, Collisions=0/57=0%
-# Finished Make data base on Wed Aug 24 22:29:07 2022
+# Load=37/8192=0%, Rehash=0, Collisions=0/61=0%
+# Finished Make data base on Fri Aug 26 12:47:23 2022
 
  

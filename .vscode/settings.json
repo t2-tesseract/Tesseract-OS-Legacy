@@ -6,7 +6,10 @@
         "stdbool.h": "c",
         "graphics.h": "c",
         "gdt.h": "c",
-        "string": "c"
+        "string": "c",
+        "stdarg.h": "c",
+        "printk.h": "c",
+        "idt.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

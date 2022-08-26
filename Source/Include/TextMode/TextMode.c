@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <Include/Graphics/Graphics.h>
+#include "Printk.h"
 #include "TextMode.h"
 
 volatile uint16_t* VgaBuffer = (uint16_t*)0xB8000;
@@ -60,8 +61,7 @@ int Scroll(int Offset){
     for (int Col = 0; Col < VgaCols; Col++) {
         TerminalPutChar(' ', GetOffset(Col, VgaRows - 1));
     }
-
-	// TerminalClear();
+	
     return Offset - 2 * VgaCols;
 }
 
@@ -183,6 +183,7 @@ void ExecuteCommand(char *Input){
 		Outw(0x4004, 0x3400);
 		asm("hlt");
     } else if (CompareString(Input, "help") == 0) {
+		Printk("Hello\n");
 		// general commands
 		char *generalCommandsList[] = {
 			"shutdown", 
