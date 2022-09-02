@@ -34,37 +34,47 @@ void *MemoryCopy(char *dst, char *src, int n){
     }
 }
 
-char* StringNCat(char * String1, char * String2, uint32_t n){
-    char * S = String1;
-    String1 += StringLength(String1);
-    uint32_t SS = __StringLength(String2,n);
-    String1[SS] = '\0';
-    MemoryCopy(String1, String2,SS);
-    return S;
+void* MemorySet(void * ptr, int value, uint16_t num){
+    uint8_t* u8Ptr = (uint8_t *)ptr;
+
+    for (uint16_t i = 0; i < num; i++)
+        u8Ptr[i] = (uint8_t)value;
+
+    return ptr;
 }
 
-// uint32_t StringLength(const char *String) {
-//     int i = 0;
-//     while (String[i] != (char)0) {
-//         ++i;
-//     }
-//     return i;
-// }
+int MemoryCompare(const void* ptr1, const void* ptr2, uint16_t num){
+    const uint8_t* u8Ptr1 = (const uint8_t *)ptr1;
+    const uint8_t* u8Ptr2 = (const uint8_t *)ptr2;
 
-uint32_t __StringLength(const char *String, uint32_t MaxLen) {
+    for (uint16_t i = 0; i < num; i++)
+        if (u8Ptr1[i] != u8Ptr2[i])
+            return 1;
+
+    return 0;
+}
+
+const char* StringChar(const char* str, char chr){
+    if (str == NULL)
+        return NULL;
+
+    while (*str)
+    {
+        if (*str == chr)
+            return str;
+
+        ++str;
+    }
+
+    return NULL;
+}
+
+uint32_t StringLength(const char *String){
     int i = 0;
     while (String[i] != (char)0) {
         ++i;
-        if (i==MaxLen) return i;
     }
     return i;
-}
-
-size_t StringLength(const char* String){
-    size_t Len = 0;
-    while(String[Len] != '\0')
-        Len++;
-    return Len;
 }
 
 bool Backspace(char Buffer[]){
@@ -98,4 +108,12 @@ void InitPic(void){
 
 	Outb(0x21, 0x0);
 	Outb(0xA1, 0x0);
+}
+
+bool IsLower(char chr){
+    return chr >= 'a' && chr <= 'z';
+}
+
+char Toupper(char chr){
+    return IsLower(chr) ? (chr - 'a' + 'A') : chr;
 }
