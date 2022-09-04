@@ -3,9 +3,9 @@
 #include <stdbool.h>
 #include <Include/Common/Common.h>
 
-#define Base  0x800	
-#define Size  0xFF	
-#define Gate  0x8E00	
+#define IdtBase  0x800	
+#define IdtSize  0xFF	
+#define IdtGate  0x8E00	
 
 struct IdtDescriptor{
 	uint16_t offset0_15;

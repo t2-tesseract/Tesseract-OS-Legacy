@@ -9,7 +9,7 @@ void Irq0(void);
 void Irq1(void);
 
 struct IdtPointer KernelIdtPointer;
-struct IdtDescriptor KernelIdt[Size];
+struct IdtDescriptor KernelIdt[IdtSize];
 
 void InitIdtDescriptor(uint16_t select, uint32_t offset, uint16_t type, struct IdtDescriptor *Descriptor)
 {
@@ -23,14 +23,14 @@ void InitIdtDescriptor(uint16_t select, uint32_t offset, uint16_t type, struct I
 void InitIdt(void){
 	int i;
 
-	for (i = 0; i < Size; i++) 
-		InitIdtDescriptor(0x08, (uint32_t) DefaultInt, Gate, &KernelIdt[i]);
+	for (i = 0; i < IdtSize; i++) 
+		InitIdtDescriptor(0x08, (uint32_t) DefaultInt, IdtGate, &KernelIdt[i]);
 
-	InitIdtDescriptor(0x08, (uint32_t) Irq0, Gate, &KernelIdt[32]); // Clock
-	InitIdtDescriptor(0x08, (uint32_t) Irq1, Gate, &KernelIdt[33]); // Keyboard
+	InitIdtDescriptor(0x08, (uint32_t) Irq0, IdtGate, &KernelIdt[32]); // Clock
+	InitIdtDescriptor(0x08, (uint32_t) Irq1, IdtGate, &KernelIdt[33]); // Keyboard
 
-	KernelIdtPointer.limit = Size * 8;
-	KernelIdtPointer.base = Base;
+	KernelIdtPointer.limit = IdtSize * 8;
+	KernelIdtPointer.base = IdtBase;
 
 	MemoryCopy((char *) KernelIdtPointer.base, (char *) KernelIdt, KernelIdtPointer.limit);
 
