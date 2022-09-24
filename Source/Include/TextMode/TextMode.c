@@ -3,8 +3,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <Include/Graphics/Graphics.h>
+#include <Include/Vfs/Vfs.h>
 #include "Printk.h"
 #include "TextMode.h"
+
+char* Argv;
+
+struct File *Files = NULL;
 
 volatile uint16_t* VgaBuffer = (uint16_t*)0xB8000;
 
@@ -14,6 +19,29 @@ const int VgaRows = 25;
 int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
+
+char* logo[34] = {
+			"              &&&             \n",
+			"             &&&&&            \n",
+			"            &&&&&&&           \n",
+			"          (&&&&&&&&&#         OS: Tesseract Operating System\n",
+			"         &&&&&&&&&&&&&        \n",
+			"        &&&&&&&&&&&&&&&       Version: 1.0\n",
+			"       &&&&&&&&&&&&&&&&&      Compile Date: todo\n",
+			"      &&&&&&&&&&&&&&&&&&&     \n",
+			"         %%%%%%%%%%%%%        \n",
+			"      %%%%%%%%%%%%%%%%%%%     \n",
+			"   %%%%%%%%%%%%%%%%%%%%%%%%%  \n",
+			"  %%%%%%%%%%%%%%%%%%%%%%%%%%% \n",
+			"    %%%%%%%%%%%%%%%%%%%%%%%   \n",
+			"       %%%%%%%%%%%%%%%%%      \n",
+			"         (%%%%%%%%%%%(        \n",
+			"        (((((%%%%%(((((       Made by: T2\n",
+			"       (((((((((((((((((      (iplux and Kokolor)\n",
+			"      (((((((((((((((((((     \n",
+			"         (((((((((((((        \n",
+			"            (((((((           "
+		};
 
 const char* Tab = "    ";
 
@@ -150,7 +178,7 @@ void TerminalShell(){
 	TerminalWrite("Tesseract ");
 
 	TerminalSetColor(0x02);
-	TerminalWrite("[usr/] ");
+	TerminalWrite("[/] ");
 
 	TerminalSetColor(0x0F);
 	TerminalWrite("$> ");
@@ -183,11 +211,11 @@ void ExecuteCommand(char *Input){
 		Outw(0x4004, 0x3400);
 		asm("hlt");
     } else if (CompareString(Input, "help") == 0) {
-		Printk("Hello\n");
 		// general commands
 		char *generalCommandsList[] = {
 			"shutdown", 
-			"clr"
+			"clr",
+			"ls"
 		};
 		char *generalDescList[] = {
 			"Halt the CPU and shutdown the computer.",
@@ -337,30 +365,25 @@ void ExecuteCommand(char *Input){
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "clr") == 0) {
 		TerminalClear();
+	} else if (CompareString(Input, "ls") == 0) {
+		// struct File* Read = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
+    	// struct File* Test = CreateFile("Test.txt", "This is a test", StringLength("This is a test"), Files);
+		struct Folder *usr = CreateFolder("usr");
+    	FolderCreateFile("usr", "Readme.txt");
+		ListFolders(usr);
+	} else if (CompareString(Input, "cd usr/") == 0) {
+		struct Folder *Folders = NULL;
+		struct Folder *usr = CreateFolder("usr");
+		FolderCreateFile("usr", "Readme.txt");
+		ChangeDirectory(Folders, usr);
+		ListFolders(usr);
+	} else if (CompareString(Input, "readme") == 0) {
+		// struct File* ReadMe = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
+		// ReadFile(ReadMe);
+		// TerminalWrite(ReadMe->Data);
+		// TerminalWrite("\n");
+		// DeleteFile(ReadMe);
 	} else if (CompareString(Input, "sysfetch") == 0) {
-		char* logo[34] = {
-			"              &&&             \n",
-			"             &&&&&            \n",
-			"            &&&&&&&           \n",
-			"          (&&&&&&&&&#         OS: Tesseract Operating System\n",
-			"         &&&&&&&&&&&&&        \n",
-			"        &&&&&&&&&&&&&&&       Version: 1.0\n",
-			"       &&&&&&&&&&&&&&&&&      Compile Date: todo\n",
-			"      &&&&&&&&&&&&&&&&&&&     \n",
-			"         %%%%%%%%%%%%%        \n",
-			"      %%%%%%%%%%%%%%%%%%%     \n",
-			"   %%%%%%%%%%%%%%%%%%%%%%%%%  \n",
-			"  %%%%%%%%%%%%%%%%%%%%%%%%%%% \n",
-			"    %%%%%%%%%%%%%%%%%%%%%%%   \n",
-			"       %%%%%%%%%%%%%%%%%      \n",
-			"         (%%%%%%%%%%%(        \n",
-			"        (((((%%%%%(((((       Made by: T2\n",
-			"       (((((((((((((((((      (iplux and Kokolor)\n",
-			"      (((((((((((((((((((     \n",
-			"         (((((((((((((        \n",
-			"            (((((((           "
-		};
-
 		TerminalWrite("\n");
 
 		TerminalSetColor(0x0B);
@@ -380,3 +403,4 @@ void ExecuteCommand(char *Input){
 
 	TerminalShell();
 }
+

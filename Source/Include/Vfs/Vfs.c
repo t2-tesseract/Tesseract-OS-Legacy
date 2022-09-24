@@ -3,51 +3,100 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <Include/Common/Common.h>
+#include "Vfs.h"
 
-// struct File {
-//     char* Data;
-//     char* Name;
-//     char* Extention;
+struct File *CreateFile(char *Name, char *Data, int Size, struct File *Files) {
+    struct File *f = MemoryAlloc(sizeof(struct File));
+    f->Name = Name;
+    f->Data = Data;
+    f->Size = Size;
+    f->Next = Files;
+    Files = f;
+    return Files;
+}
 
-//     void Read(){
-//         return Data;
-//     }
+char *ReadFile(struct File *f){
+    return f->Data;
+}
 
-//     void Write(char* NewData){
-//         Data = NewData;
-//     }
+int DeleteFile(struct File *f){
+    MemoryFree(f->Name);
+    MemoryFree(f->Data);
+    MemoryFree(f);
+    return 0;
+}
 
-//     void Append(char* NewData){
-//         Data = StringNCat(Data, NewData, StringLength(NewData));
-//     }
+void WriteFile(struct File *f, char *Data){
+    f->Data = Data;
+}
 
-//     void Rename(char* NewName, char* NewExtention){
-//         Name = NewName;
-//         Extention = NewExtention;
-//     }
+struct File *ListFiles(struct File *Files) {
+    struct File *f = Files;
+    while (f != NULL) {
+        TerminalWrite(f->Name);
+        TerminalWrite("\n");
+        f = f->Next;
+    }
+    return f;
+}
 
-// };
+struct Folder *FolderCreateFile(struct Folder *Folders, char *Name){
+    struct Folder *f = GoToFolder(Folders, Name);
+    if (f == NULL) {
+        return NULL;
+    }
+    struct File *Files = NULL;
+    struct File *file = MemoryAlloc(sizeof(struct File));
+    file->Name = Name;
+    file->Data = NULL;
+    file->Size = 0;
+    file->Next = Files;
+    Files = file;
+    f->Files = Files;
+    return f;
+}
 
-// struct Directory {
-//     struct Directory* childDir;
-//     int childdir;
-//     int childfile;
-//     struct File childFile[100];
-//     char* fileName;
-//     int currentDirIndex;
-//     // currentDirIndex = -1;
-//     struct File emptyFile;
-// };
+struct Folder *CreateFolder(char *Name){
+    struct Folder *Folders = NULL;
+    struct Folder *f = MemoryAlloc(sizeof(struct Folder));
+    f->Name = Name;
+    f->SubFolders = NULL;
+    f->Files = NULL;
+    f->Next = Folders;
+    Folders = f;
+    return f;
+}
 
-// void ChangeDirectory(char* Name) {
-//         if (Name == "..")
-//             currentDirIndex = -1; // -1 is root
-//         else {
-//             if (currentDirIndex == -1) {
-//                 for (int i = 0; i < 100; i++)
-//                     if (childDir[i].fileName == Name)
-//                         currentDirIndex = i;
-//             } else
-//                 childDir[currentDirIndex].ChangeDirectory(Name);
-//         }
-//     }
+int DeleteFolder(struct Folder *f){
+    MemoryFree(f->Name);
+    MemoryFree(f->SubFolders);
+    MemoryFree(f->Files);
+    MemoryFree(f);
+    return 0;
+}
+
+struct Folder *ListFolders(struct Folder *Folders){
+    TerminalWrite(Folders->Name);
+    TerminalWrite("/");
+    TerminalWrite("\n");
+    return Folders;
+}
+
+struct Folder *ChangeDirectory(struct Folder *Folders, char *Name){
+    struct Folder *f = GoToFolder(Folders, Name);
+    if (f == NULL) {
+        return NULL;
+    }
+    return f;
+}
+
+struct Folder *GoToFolder(struct Folder *Folders, char *Name){
+    struct Folder *f = Folders;
+    while (f != NULL) {
+        if (CompareString(f->Name, Name) == 0) {
+            return f;
+        }
+        f = f->Next;
+    }
+    return NULL;
+}

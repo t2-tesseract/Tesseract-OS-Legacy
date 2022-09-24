@@ -19,7 +19,7 @@ LoadKernel:
     mov dh, 54
     mov dl, [BootDrive]
     call DiskLoad
-
+    
     ret
 
 [bits 32]

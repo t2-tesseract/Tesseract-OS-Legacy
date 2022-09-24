@@ -8,12 +8,12 @@ Kernel.bin: KernelEntry.o Interrupts.o X86.o $(OBJS)
 	ld -o $@ -Ttext 0x1000 $^ --oformat binary -m elf_i386
 
 OSImage.img: Boot.bin Kernel.bin
-	cat $^ > OS.img
-	# mcopy -i OSImage.img Kernel.bin "::Kernel.bin"
+	# cat $^ > OS.img
+	cat Boot.bin Kernel.bin | dd of=OS.img bs=512 conv=notrunc
 	dd if=/dev/zero of=OSImage.img bs=512 count=2880
 	mkfs.fat -F 12 -n "DISK" OSImage.img
 	dd if=OS.img of=OSImage.img conv=notrunc
-#	mcopy -i Disk.bin Kernel.bin "::Kernel.bin"
+	# mcopy -i OSImage.img Kernel.bin "::Kernel.bin"
 
 Boot.bin:
 	nasm Bootloader/Main.asm -f bin -o Boot.bin
@@ -35,6 +35,5 @@ clean:
 	rm *.o
 	rm *.img
 	rm *.iso
-	rm Source/Include/Fat/Fat.o
 	rm Source/Include/Fat/Disk.o
 	rm $(OBJS)

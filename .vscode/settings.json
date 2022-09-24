@@ -9,7 +9,16 @@
         "string": "c",
         "stdarg.h": "c",
         "printk.h": "c",
-        "idt.h": "c"
+        "idt.h": "c",
+        "fat.h": "c",
+        "typeindex": "c",
+        "typeinfo": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "valarray": "c",
+        "vfs.h": "c",
+        "cstring": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

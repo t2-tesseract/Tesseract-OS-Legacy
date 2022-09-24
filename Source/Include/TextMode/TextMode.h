@@ -2,12 +2,15 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <Kernel/Log.h>
 #include <Include/Common/Common.h>
 
 #define VgaCtrlRegister 0x3d4
 #define VgaDataRegister 0x3d5
 #define VgaOffsetLow 0x0f
 #define VgaOffsetHigh 0x0e
+
+extern struct File *Files;
 
 int GetRowFromOffset(int Offset);
 int GetOffset(int Col, int Row);
