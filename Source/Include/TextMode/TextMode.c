@@ -214,8 +214,7 @@ void ExecuteCommand(char *Input){
 		// general commands
 		char *generalCommandsList[] = {
 			"shutdown", 
-			"clr",
-			"ls"
+			"clr"
 		};
 		char *generalDescList[] = {
 			"Halt the CPU and shutdown the computer.",
@@ -233,6 +232,15 @@ void ExecuteCommand(char *Input){
 			"Set a video mode"
 		};
 		size_t settingsArraySize = sizeof(settingsCommandsList) / sizeof(settingsCommandsList[0]);
+
+		// file system
+		char *fsCommandsList[] = {
+			"ls"
+		};
+		char *fsDescList[] = {
+			"List the files and folders in the current directory."
+		};
+		size_t fsArraySize = sizeof(fsCommandsList) / sizeof(fsCommandsList[0]);
 
 		// miscellaneous
 		char *miscCommandsList[] = {
@@ -300,6 +308,34 @@ void ExecuteCommand(char *Input){
 			TerminalWrite("- ");
 			TerminalWrite(settingsDescList[a]);
 			TerminalWrite("\n");
+
+			a++;
+		};
+
+		TerminalSetColor(0x02);
+
+		for (i = 0; i < 2; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("File System: \n");
+
+		a = 0;
+
+		while(a != fsArraySize) {
+			int e;
+
+			for (e = 0; e < 3; e++) {
+				TerminalWrite(Tab);
+			}
+
+			TerminalSetColor(0x0C);
+			TerminalWrite(fsCommandsList[a]);
+			TerminalWrite(" ");
+			
+			TerminalSetColor(0x0F);
+			TerminalWrite("- ");
+			TerminalWrite(fsDescList[a]);
+			TerminalWrite("");
 
 			a++;
 		};
