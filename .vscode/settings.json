@@ -18,7 +18,8 @@
         "initializer_list": "c",
         "valarray": "c",
         "vfs.h": "c",
-        "cstring": "c"
+        "cstring": "c",
+        "log.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -335,7 +335,7 @@ void ExecuteCommand(char *Input){
 			TerminalSetColor(0x0F);
 			TerminalWrite("- ");
 			TerminalWrite(fsDescList[a]);
-			TerminalWrite("");
+			TerminalWrite("\n");
 
 			a++;
 		};
@@ -404,9 +404,18 @@ void ExecuteCommand(char *Input){
 	} else if (CompareString(Input, "ls") == 0) {
 		// struct File* Read = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
     	// struct File* Test = CreateFile("Test.txt", "This is a test", StringLength("This is a test"), Files);
+		int a = 0;
 		struct Folder *usr = CreateFolder("usr");
+
+		struct Folder *Folders[] = {
+			usr
+		};
+		size_t foldersArraySize = sizeof(Folders) / sizeof(Folders[0]);
+
     	FolderCreateFile("usr", "Readme.txt");
-		ListFolders(usr);
+		while(a != foldersArraySize) {
+			ListFolders(Folders[a]);
+		}
 	} else if (CompareString(Input, "cd usr/") == 0) {
 		struct Folder *Folders = NULL;
 		struct Folder *usr = CreateFolder("usr");
