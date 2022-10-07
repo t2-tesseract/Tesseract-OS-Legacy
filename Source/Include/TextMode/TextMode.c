@@ -456,6 +456,9 @@ void ExecuteCommand(char *Input, char *Arg1){
 		}
 
 		TerminalWrite("\n\n");
+	} else if (CompareString(Input, "rpt") == 0) {
+		TerminalWrite(Arg1);
+		TerminalWrite("\n\n");
 	} else {
 		TerminalSetColor(0x0C);
 
