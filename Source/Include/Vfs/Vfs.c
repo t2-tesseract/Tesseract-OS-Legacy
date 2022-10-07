@@ -81,7 +81,7 @@ struct Folder *ListFolders(struct Folder *Folders){
     struct File *f = Folders;
     while (f != NULL) {
         TerminalWrite(f->Name);
-        TerminalWrite("\n");
+        TerminalWrite("/\n");
         f = f->Next;
     }
     return f;
@@ -106,31 +106,46 @@ struct Folder *GoToFolder(struct Folder *Folders, char *Name){
     return NULL;
 }
 
-int InitVfs(){    
-    Folders = CreateFolder("/usr");
+int InitVfs(){   
+    char *toCreate[4] = {
+        "usr", 
+        "bin",
+        "dev",
+        "home",
+        "lib"
+    };
+
+    for (int i = 0; i < 4; i++) {
+        Folders = CreateFolder(toCreate[i]);
+        if (Folders == "NULL") {
+            return -1;
+        }
+    }
+
+    /*Folders = CreateFolder("usr");
     if (Folders == "NULL") {
         return -1;
     }
 
-    Folders = CreateFolder("/bin");
+    Folders = CreateFolder("bin");
     if (Folders == NULL) {
         return -1;
     }
 
-    Folders = CreateFolder("/dev");
+    Folders = CreateFolder("dev");
     if (Folders == NULL) {
         return -1;
     }
 
-    Folders = CreateFolder("/home");
+    Folders = CreateFolder("home");
     if (Folders == NULL) {
         return -1;
     }
 
-    Folders = CreateFolder("/lib");
+    Folders = CreateFolder("lib");
     if (Folders == NULL) {
         return -1;
-    }
+    }*/
     
     return 0;
 }

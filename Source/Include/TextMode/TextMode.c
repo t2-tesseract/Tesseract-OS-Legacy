@@ -18,6 +18,8 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
+const char* curDir = "";
+
 char* logo[34] = {
 			"              &&&             \n",
 			"             &&&&&            \n",
@@ -172,61 +174,18 @@ void DebugWrite(const char* String, int Mode, bool toEmuConsole){
 }
 
 void TerminalShell(){
-	if (Folders == "/usr"){
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
+	TerminalSetColor(0x0B);
+	TerminalWrite("Tesseract ");
 
-		TerminalSetColor(0x02);
-		TerminalWrite("[/usr] ");
+	TerminalSetColor(0x02);
+	TerminalWrite("[");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	} else if (Folders == "/bin"){
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
+	TerminalWrite(curDir);
 
-		TerminalSetColor(0x02);
-		TerminalWrite("[/bin] ");
+	TerminalWrite("/] ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	} else if (Folders == "/dev"){
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
-
-		TerminalSetColor(0x02);
-		TerminalWrite("[/dev] ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	} else if (Folders == "/home"){
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
-
-		TerminalSetColor(0x02);
-		TerminalWrite("[/home] ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	} else if (Folders == "/lib"){
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
-
-		TerminalSetColor(0x02);
-		TerminalWrite("[/lib] ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	} else{
-		TerminalSetColor(0x0B);
-		TerminalWrite("Tesseract ");
-
-		TerminalSetColor(0x02);
-		TerminalWrite("[/] ");
-
-		TerminalSetColor(0x0F);
-		TerminalWrite("$> ");
-	}
+	TerminalSetColor(0x0F);
+	TerminalWrite("$> ");
 }
 
 int CompareString(char String1[], char String2[]) {
@@ -237,7 +196,7 @@ int CompareString(char String1[], char String2[]) {
     return String1[i] - String2[i];
 }
 
-void ExecuteCommand(char *Input){
+void ExecuteCommand(char *Input, char *Arg1){
 	int i;
 
     if (CompareString(Input, "shutdown") == 0) {
@@ -452,22 +411,23 @@ void ExecuteCommand(char *Input){
 		ListFolders(Folders);
 		ListFiles(Files);
 	} else if (CompareString(Input, "create a.txt") == 0) {
-		// struct File* ReadMe = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
-		// ReadFile(ReadMe);
-		// TerminalWrite(ReadMe->Data);
-		// TerminalWrite("\n");
 		Files = CreateFile("A.txt", "A", 2, Files);
-		// DeleteFile(ReadMe);
-	} else if (CompareString(Input, "cd usr/") == 0) {
-		Folders = GoToFolder(Folders, "/usr");
-	} else if (CompareString(Input, "cd bin/") == 0) {
-		Folders = GoToFolder(Folders, "/bin");
-	} else if (CompareString(Input, "cd dev/") == 0) {
-		Folders = GoToFolder(Folders, "/dev");
-	} else if (CompareString(Input, "cd home/") == 0) {
-		Folders = GoToFolder(Folders, "/home");
-	} else if (CompareString(Input, "cd lib/") == 0) {
-		Folders = GoToFolder(Folders, "/lib");
+	// needs refactoring
+	} else if (CompareString(Input, "cd usr") == 0) {
+		Folders = GoToFolder(Folders, "usr");
+		curDir = "usr";
+	} else if (CompareString(Input, "cd bin") == 0) {
+		Folders = GoToFolder(Folders, "bin");
+		curDir = "bin";
+	} else if (CompareString(Input, "cd dev") == 0) {
+		Folders = GoToFolder(Folders, "dev");
+		curDir = "dev";
+	} else if (CompareString(Input, "cd home") == 0) {
+		Folders = GoToFolder(Folders, "home");
+		curDir = "home";
+	} else if (CompareString(Input, "cd lib") == 0) {
+		Folders = GoToFolder(Folders, "lib");
+		curDir = "lib";
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		TerminalWrite("\n");
 

@@ -19,5 +19,4 @@ void Start(){
 	TerminalShell();
 
 	EnableInterrupts;
-    
 }
