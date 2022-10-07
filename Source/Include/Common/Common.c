@@ -162,19 +162,51 @@ void MemoryFree(void *p){
     MergeCurrentNoteIntoPrevious(CurrentMemNode);
 }
 
-const char* StringChar(const char* str, char chr){
-    if (str == NULL)
+const char* StringChar(const char* String, char Char){
+    if (String == NULL)
         return NULL;
 
-    while (*str)
+    while (*String)
     {
-        if (*str == chr)
-            return str;
+        if (*String == Char)
+            return String;
 
-        ++str;
+        ++String;
     }
 
     return NULL;
+}
+
+char* StringTok(char* String, const char* Delim){
+    static char* P = 0;
+    if (String)
+        P = String;
+    else if (!P)
+        return 0;
+    String = P + StringSpn(P, Delim);
+    P = String + StringCspn(String, Delim);
+    if (P == String)
+        return 0;
+    P = * P ? * P = 0, P + 1 : 0;
+    return String;
+}
+
+size_t StringCspn(const char* S, const char* Reject){
+    size_t Count = 0;
+    while (*S)
+        if (StringChar(Reject, *S++))
+            return Count;
+        else
+            ++Count;
+    return Count;
+}
+
+
+size_t StringSpn(const char* S, const char* Accept){
+    size_t Count = 0;
+    while (*S && StringChar(Accept, *S++))
+        ++Count;
+    return Count;
 }
 
 uint32_t StringLength(const char *String){
