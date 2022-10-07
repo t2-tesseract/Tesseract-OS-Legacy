@@ -5,6 +5,9 @@
 #include <Include/Common/Common.h>
 #include "Vfs.h"
 
+struct Folder *Folders = NULL;
+struct File* Files = NULL;
+
 struct File *CreateFile(char *Name, char *Data, int Size, struct File *Files) {
     struct File *f = MemoryAlloc(sizeof(struct File));
     f->Name = Name;
@@ -57,14 +60,13 @@ struct Folder *FolderCreateFile(struct Folder *Folders, char *Name){
 }
 
 struct Folder *CreateFolder(char *Name){
-    struct Folder *Folders = NULL;
     struct Folder *f = MemoryAlloc(sizeof(struct Folder));
     f->Name = Name;
     f->SubFolders = NULL;
     f->Files = NULL;
     f->Next = Folders;
     Folders = f;
-    return f;
+    return Folders;
 }
 
 int DeleteFolder(struct Folder *f){
@@ -76,10 +78,13 @@ int DeleteFolder(struct Folder *f){
 }
 
 struct Folder *ListFolders(struct Folder *Folders){
-    TerminalWrite(Folders->Name);
-    TerminalWrite("/");
-    TerminalWrite("\n");
-    return Folders;
+    struct File *f = Folders;
+    while (f != NULL) {
+        TerminalWrite(f->Name);
+        TerminalWrite("\n");
+        f = f->Next;
+    }
+    return f;
 }
 
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name){
@@ -99,4 +104,33 @@ struct Folder *GoToFolder(struct Folder *Folders, char *Name){
         f = f->Next;
     }
     return NULL;
+}
+
+int InitVfs(){    
+    Folders = CreateFolder("/usr");
+    if (Folders == "NULL") {
+        return -1;
+    }
+
+    Folders = CreateFolder("/bin");
+    if (Folders == NULL) {
+        return -1;
+    }
+
+    Folders = CreateFolder("/dev");
+    if (Folders == NULL) {
+        return -1;
+    }
+
+    Folders = CreateFolder("/home");
+    if (Folders == NULL) {
+        return -1;
+    }
+
+    Folders = CreateFolder("/lib");
+    if (Folders == NULL) {
+        return -1;
+    }
+    
+    return 0;
 }

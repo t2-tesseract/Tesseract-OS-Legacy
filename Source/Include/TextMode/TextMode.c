@@ -9,8 +9,6 @@
 
 char* Argv;
 
-struct File *Files = NULL;
-
 volatile uint16_t* VgaBuffer = (uint16_t*)0xB8000;
 
 const int VgaCols = 80;
@@ -174,14 +172,61 @@ void DebugWrite(const char* String, int Mode, bool toEmuConsole){
 }
 
 void TerminalShell(){
-	TerminalSetColor(0x0B);
-	TerminalWrite("Tesseract ");
+	if (Folders == "/usr"){
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
 
-	TerminalSetColor(0x02);
-	TerminalWrite("[/] ");
+		TerminalSetColor(0x02);
+		TerminalWrite("[/usr] ");
 
-	TerminalSetColor(0x0F);
-	TerminalWrite("$> ");
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	} else if (Folders == "/bin"){
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
+
+		TerminalSetColor(0x02);
+		TerminalWrite("[/bin] ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	} else if (Folders == "/dev"){
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
+
+		TerminalSetColor(0x02);
+		TerminalWrite("[/dev] ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	} else if (Folders == "/home"){
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
+
+		TerminalSetColor(0x02);
+		TerminalWrite("[/home] ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	} else if (Folders == "/lib"){
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
+
+		TerminalSetColor(0x02);
+		TerminalWrite("[/lib] ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	} else{
+		TerminalSetColor(0x0B);
+		TerminalWrite("Tesseract ");
+
+		TerminalSetColor(0x02);
+		TerminalWrite("[/] ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite("$> ");
+	}
 }
 
 int CompareString(char String1[], char String2[]) {
@@ -404,30 +449,25 @@ void ExecuteCommand(char *Input){
 	} else if (CompareString(Input, "ls") == 0) {
 		// struct File* Read = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
     	// struct File* Test = CreateFile("Test.txt", "This is a test", StringLength("This is a test"), Files);
-		int a = 0;
-		struct Folder *usr = CreateFolder("usr");
-
-		struct Folder *Folders[] = {
-			usr
-		};
-		size_t foldersArraySize = sizeof(Folders) / sizeof(Folders[0]);
-
-    	FolderCreateFile("usr", "Readme.txt");
-		while(a != foldersArraySize) {
-			ListFolders(Folders[a]);
-		}
-	} else if (CompareString(Input, "cd usr/") == 0) {
-		struct Folder *Folders = NULL;
-		struct Folder *usr = CreateFolder("usr");
-		FolderCreateFile("usr", "Readme.txt");
-		ChangeDirectory(Folders, usr);
-		ListFolders(usr);
-	} else if (CompareString(Input, "readme") == 0) {
+		ListFolders(Folders);
+		ListFiles(Files);
+	} else if (CompareString(Input, "create a.txt") == 0) {
 		// struct File* ReadMe = CreateFile("Readme.txt", "Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.", StringLength("Welcome to Tesseract!\nWARNING, This project is at it's earliest stage, there might be bugs or missing functionalities.\n\nTesseract is a project made by T2 (alias iplux and Kokolor) destined to make an working operating system from scratch.\nWhy a new operating system? Why not choose a GNU/Linux distro, Windows or macOS?\nBecause we believe Tesseract is not like the others. Tesseract can change what you think of operating systems.\n\nA tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension."), Files);
 		// ReadFile(ReadMe);
 		// TerminalWrite(ReadMe->Data);
 		// TerminalWrite("\n");
+		Files = CreateFile("A.txt", "A", 2, Files);
 		// DeleteFile(ReadMe);
+	} else if (CompareString(Input, "cd usr/") == 0) {
+		Folders = GoToFolder(Folders, "/usr");
+	} else if (CompareString(Input, "cd bin/") == 0) {
+		Folders = GoToFolder(Folders, "/bin");
+	} else if (CompareString(Input, "cd dev/") == 0) {
+		Folders = GoToFolder(Folders, "/dev");
+	} else if (CompareString(Input, "cd home/") == 0) {
+		Folders = GoToFolder(Folders, "/home");
+	} else if (CompareString(Input, "cd lib/") == 0) {
+		Folders = GoToFolder(Folders, "/lib");
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		TerminalWrite("\n");
 

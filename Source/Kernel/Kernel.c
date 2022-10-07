@@ -8,8 +8,12 @@
 void _start(){
     Start();
 
-    struct Folder *usr = CreateFolder("usr");
-    FolderCreateFile("usr", "Readme.txt");
+    if (InitVfs() != 0){
+        TerminalSetColor(0x0C);
+        TerminalWrite("Error! Failed to init VFS!\n");
+        return -1;
+        asm("hlt");
+    }
 
     while(1);
 }

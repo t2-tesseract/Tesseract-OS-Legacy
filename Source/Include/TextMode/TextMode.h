@@ -10,8 +10,6 @@
 #define VgaOffsetLow 0x0f
 #define VgaOffsetHigh 0x0e
 
-extern struct File *Files;
-
 int GetRowFromOffset(int Offset);
 int GetOffset(int Col, int Row);
 int MoveOffsetToNewLine(int Offset);

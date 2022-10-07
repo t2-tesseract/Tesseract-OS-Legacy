@@ -3,6 +3,9 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+extern struct Folder *Folders;
+extern struct File* Files;
+
 struct File{
     char *Name;
     char *Data;
@@ -28,3 +31,4 @@ int DeleteFolder(struct Folder *f);
 struct Folder *ListFolders(struct Folder *Folders);
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name);
 struct Folder *GoToFolder(struct Folder *Folders, char *Name);
+int InitVfs();
