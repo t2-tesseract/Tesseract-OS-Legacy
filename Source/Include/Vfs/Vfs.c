@@ -8,6 +8,14 @@
 struct Folder *Folders = NULL;
 struct File* Files = NULL;
 
+char *toCreate[4] = {
+    "usr", 
+    "bin",
+    "dev",
+    "home",
+    "lib"
+};
+
 struct File *CreateFile(char *Name, char *Data, int Size, struct File *Files) {
     struct File *f = MemoryAlloc(sizeof(struct File));
     f->Name = Name;
@@ -107,14 +115,6 @@ struct Folder *GoToFolder(struct Folder *Folders, char *Name){
 }
 
 int InitVfs(){   
-    char *toCreate[4] = {
-        "usr", 
-        "bin",
-        "dev",
-        "home",
-        "lib"
-    };
-
     for (int i = 0; i < 4; i++) {
         Folders = CreateFolder(toCreate[i]);
         if (Folders == "NULL") {

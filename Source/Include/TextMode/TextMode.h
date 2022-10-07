@@ -24,4 +24,4 @@ void TerminalShell();
 void SetCursor(int Offset);
 int GetCursor();
 int CompareString(char String1[], char String2[]);
-void ExecuteCommand(char *Input);
+void ExecuteCommand(char *Input, char *Arg1);

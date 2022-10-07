@@ -410,10 +410,28 @@ void ExecuteCommand(char *Input, char *Arg1){
     	// struct File* Test = CreateFile("Test.txt", "This is a test", StringLength("This is a test"), Files);
 		ListFolders(Folders);
 		ListFiles(Files);
-	} else if (CompareString(Input, "create a.txt") == 0) {
-		Files = CreateFile("A.txt", "A", 2, Files);
+	} else if (CompareString(Input, "create") == 0) {
+		Files = CreateFile(Arg1, "", 2, Files);
 	// needs refactoring
-	} else if (CompareString(Input, "cd usr") == 0) {
+	} else if (CompareString(Input, "cd") == 0) {
+		// todo: make it so that its compatible with created folders
+		if (CompareString(Arg1, "usr") == 0) {
+			Folders = GoToFolder(Folders, "usr");
+			curDir = "usr";
+		} else if (CompareString(Arg1, "bin") == 0) {
+			Folders = GoToFolder(Folders, "bin");
+			curDir = "bin";
+		} else if (CompareString(Arg1, "dev") == 0) {
+			Folders = GoToFolder(Folders, "dev");
+			curDir = "dev";
+		} else if (CompareString(Arg1, "home") == 0) {
+			Folders = GoToFolder(Folders, "home");
+			curDir = "home";
+		} else if (CompareString(Arg1, "lib") == 0) {
+			Folders = GoToFolder(Folders, "lib");
+			curDir = "lib";
+		}
+	/*} else if (CompareString(Input, "cd usr") == 0) {
 		Folders = GoToFolder(Folders, "usr");
 		curDir = "usr";
 	} else if (CompareString(Input, "cd bin") == 0) {
@@ -427,7 +445,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 		curDir = "home";
 	} else if (CompareString(Input, "cd lib") == 0) {
 		Folders = GoToFolder(Folders, "lib");
-		curDir = "lib";
+		curDir = "lib";*/
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		TerminalWrite("\n");
 
