@@ -19,7 +19,8 @@
         "valarray": "c",
         "vfs.h": "c",
         "cstring": "c",
-        "log.h": "c"
+        "log.h": "c",
+        "algorithm": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
