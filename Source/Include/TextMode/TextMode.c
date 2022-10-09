@@ -20,6 +20,8 @@ uint8_t TerminalColor = 0x0F;
 
 const char* curDir = "";
 
+const char* Resolution = "80x25";
+
 char* logo[34] = {
 			"              &&&             \n",
 			"             &&&&&            \n",
@@ -214,6 +216,21 @@ void ExecuteCommand(char *Input, char *Arg1){
 		Outw(0x604, 0x2000);
 		Outw(0x4004, 0x3400);
 		asm("hlt");
+	} else if (CompareString(Input, "restart") == 0) {
+		TerminalClear();
+
+		TerminalSetColor(0x0C);
+
+		// TerminalWrite(Tab);
+		TerminalWrite("Restarting...");
+
+		Delay(2500);
+
+		uint8_t good = 0x02;
+		while (good & 0x02)
+			good = Inb(0x64);
+		Outb(0x64, 0xFE);
+		asm("hlt");
     } else if (CompareString(Input, "help") == 0) {
 		// general commands
 		char *generalCommandsList[] = {
@@ -375,7 +392,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		TerminalWrite("\n\n");
     } else if (CompareString(Input, "lv") == 0) {
-		char *res[] = {"80x25 Text Mode"};
+		char *res[] = {"80x25"};
 		size_t arraySize = sizeof(res) / sizeof(res[0]);
 		int a = 0;
 
@@ -401,7 +418,12 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "sv") == 0) {
-		// TODO: make so that it can have an argument
+		// finally
+		if (CompareString(Arg1, "80x25") == 0) {
+			Resolution = "80x25";
+		} else if (CompareString(Arg1, "reset") == 0) {
+			Resolution = "80x25";
+		}
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "clr") == 0) {
 		TerminalClear();
@@ -412,7 +434,6 @@ void ExecuteCommand(char *Input, char *Arg1){
 		ListFiles(Files);
 	} else if (CompareString(Input, "create") == 0) {
 		Files = CreateFile(Arg1, "", 2, Files);
-	// needs refactoring
 	} else if (CompareString(Input, "cd") == 0) {
 		// todo: make it so that its compatible with created folders
 		if (CompareString(Arg1, "usr") == 0) {
@@ -430,6 +451,10 @@ void ExecuteCommand(char *Input, char *Arg1){
 		} else if (CompareString(Arg1, "lib") == 0) {
 			Folders = GoToFolder(Folders, "lib");
 			curDir = "lib";
+		} else {
+			TerminalSetColor(0x0C);
+			TerminalWrite(Tab);
+			TerminalWrite("The folder specified does not exist.\n\n");
 		}
 	/*} else if (CompareString(Input, "cd usr") == 0) {
 		Folders = GoToFolder(Folders, "usr");

@@ -59,7 +59,14 @@ void KeyboardInt(void){
 	} else if (Scancode == Enter) {
 		TerminalWrite("\n");
 		char *KeyBufferArg = StringTok(KeyBuffer, " ");
-        ExecuteCommand(KeyBuffer, KeyBufferArg[1]);
+		KeyBufferArg = StringTok(NULL, " ");
+		/*while (KeyBufferArg != NULL) {
+			TerminalWrite(KeyBufferArg);
+			// On demande le token suivant.
+			KeyBufferArg = StringTok(NULL, " ");
+			TerminalWrite("\n");
+		}*/
+        ExecuteCommand(KeyBuffer, KeyBufferArg);
         KeyBuffer[0] = '\0';
     } else {
 		char Letter = KeyboardMap[(int) Scancode];
