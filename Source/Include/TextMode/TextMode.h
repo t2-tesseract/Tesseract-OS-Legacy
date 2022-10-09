@@ -19,7 +19,7 @@ void TerminalSetColor(uint8_t Color);
 void TerminalBack();
 void TerminalPutChar(char Character, int Offset);
 void TerminalWrite(const char* String);
-void DebugWrite(const char* String, int Mode, bool toEmuConsole);
+void DebugWrite(const char* String, int Mode);
 void TerminalShell();
 void SetCursor(int Offset);
 int GetCursor();

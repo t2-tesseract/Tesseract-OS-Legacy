@@ -13,8 +13,8 @@ void Start(){
 
     TerminalClear();
 
-	DebugWrite("GDT Loaded.\n", 0, true);
-	DebugWrite("IDT Loaded.\n\n", 0, true);
+	DebugWrite("GDT Loaded.\n", 0);
+	DebugWrite("IDT Loaded.\n\n", 0);
 
 	TerminalShell();
 

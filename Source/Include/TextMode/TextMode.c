@@ -136,7 +136,7 @@ void TerminalBack(){
     SetCursor(NewCursor);
 }
 
-void DebugWrite(const char* String, int Mode, bool toEmuConsole){
+void DebugWrite(const char* String, int Mode){
 	if (Mode == 0) {
 		//kernel
 		TerminalSetColor(0x02);
@@ -235,11 +235,13 @@ void ExecuteCommand(char *Input, char *Arg1){
 		// general commands
 		char *generalCommandsList[] = {
 			"shutdown", 
-			"clr"
+			"clr",
+			"rpt"
 		};
 		char *generalDescList[] = {
 			"Halt the CPU and shutdown the computer.",
-			"Clear the screen."
+			"Clear the screen.",
+			"Repeat a string."
 		};
 		size_t generalArraySize = sizeof(generalCommandsList) / sizeof(generalCommandsList[0]);
 
@@ -256,10 +258,12 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		// file system
 		char *fsCommandsList[] = {
-			"ls"
+			"ls",
+			"cd"
 		};
 		char *fsDescList[] = {
-			"List the files and folders in the current directory."
+			"List the files and folders in the current directory.",
+			"Change the current directory."
 		};
 		size_t fsArraySize = sizeof(fsCommandsList) / sizeof(fsCommandsList[0]);
 
@@ -286,7 +290,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		int a = 0;
 
-		while(a != generalArraySize) {
+		while(a != (int)generalArraySize) {
 			int e;
 
 			for (e = 0; e < 3; e++) {
@@ -314,7 +318,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		a = 0;
 
-		while(a != settingsArraySize) {
+		while(a != (int)settingsArraySize) {
 			int e;
 
 			for (e = 0; e < 3; e++) {
@@ -342,7 +346,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		a = 0;
 
-		while(a != fsArraySize) {
+		while(a != (int)fsArraySize) {
 			int e;
 
 			for (e = 0; e < 3; e++) {
@@ -370,7 +374,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		a = 0;
 
-		while(a != miscArraySize) {
+		while(a != (int)miscArraySize) {
 			int e;
 
 			for (e = 0; e < 3; e++) {
@@ -389,6 +393,20 @@ void ExecuteCommand(char *Input, char *Arg1){
 			a++;
 		};
 
+		TerminalWrite("\n\n");
+
+		TerminalSetColor(0x07);
+
+		for (i = 0; i < 2; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalWrite("For arguments, you have to put \":\" next to the command:\n");
+
+		for (i = 0; i < 3; i++) {
+			TerminalWrite(Tab);
+		}
+		TerminalSetColor(0x0A);
+		TerminalWrite("Example: cd:usr");
 
 		TerminalWrite("\n\n");
     } else if (CompareString(Input, "lv") == 0) {
@@ -403,7 +421,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		TerminalSetColor(0x0E);
 
-		while(a != arraySize) {
+		while(a != (int)arraySize) {
 			for (i = 0; i < 2; i++) {
 				TerminalWrite(Tab);
 			}
@@ -451,11 +469,17 @@ void ExecuteCommand(char *Input, char *Arg1){
 		} else if (CompareString(Arg1, "lib") == 0) {
 			Folders = GoToFolder(Folders, "lib");
 			curDir = "lib";
+		} else if (CompareString(Arg1, "") == 0) {
+			TerminalSetColor(0x0C);
+			TerminalWrite(Tab);
+			TerminalWrite("Please specify a folder.\n");
 		} else {
 			TerminalSetColor(0x0C);
 			TerminalWrite(Tab);
-			TerminalWrite("The folder specified does not exist.\n\n");
+			TerminalWrite("The folder specified does not exist.\n");
 		}
+
+		TerminalWrite("\n");
 	/*} else if (CompareString(Input, "cd usr") == 0) {
 		Folders = GoToFolder(Folders, "usr");
 		curDir = "usr";
@@ -482,6 +506,7 @@ void ExecuteCommand(char *Input, char *Arg1){
 
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "rpt") == 0) {
+		TerminalSetColor(0x0A);
 		TerminalWrite(Arg1);
 		TerminalWrite("\n\n");
 	} else {

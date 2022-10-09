@@ -48,11 +48,12 @@ void Delay(uint16_t Ms){
         IoWait();
 }
 
-void *MemoryCopy(char *dst, char *src, int n){
+void *MemoryCopy(unsigned char *dst, unsigned char *src, int n){
 	int i;
     for (i = 0; i < n; i++) {
         *(dst + i) = *(src + i);
     }
+    return (void *)1;
 }
 
 void* MemorySet(void * ptr, int value, uint16_t num){
@@ -143,6 +144,7 @@ void *MergeCurrentNoteIntoPrevious(DynamicMemNode_t *CurrentMemNode) {
             CurrentMemNode->next->prev = PreviousMemNode;
         }
     }
+    return 0;
 }
 
 void MemoryFree(void *p){

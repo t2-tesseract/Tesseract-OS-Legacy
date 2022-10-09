@@ -15,7 +15,7 @@ const char KeyboardMap[] = {
   	'q', 'w', 'e', 'r',
   	't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',
   	  0,
-  	'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',
+  	'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':',
  '	\'', '`',   0,
  '	\\', 'z', 'x', 'c', 'v', 'b', 'n',
   	'm', ',', '.', '/',   0,
@@ -58,14 +58,8 @@ void KeyboardInt(void){
 		}
 	} else if (Scancode == Enter) {
 		TerminalWrite("\n");
-		char *KeyBufferArg = StringTok(KeyBuffer, " ");
-		KeyBufferArg = StringTok(NULL, " ");
-		/*while (KeyBufferArg != NULL) {
-			TerminalWrite(KeyBufferArg);
-			// On demande le token suivant.
-			KeyBufferArg = StringTok(NULL, " ");
-			TerminalWrite("\n");
-		}*/
+		char *KeyBufferArg = StringTok(KeyBuffer, ":");
+		KeyBufferArg = StringTok(NULL, ":");
         ExecuteCommand(KeyBuffer, KeyBufferArg);
         KeyBuffer[0] = '\0';
     } else {
