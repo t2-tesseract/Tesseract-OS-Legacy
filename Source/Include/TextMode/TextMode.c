@@ -19,8 +19,8 @@ int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
 const char* curDir = "";
-
 const char* Resolution = "80x25";
+const char* Language = "english";
 
 char* logo[34] = {
 			"              &&&             \n",
@@ -450,8 +450,11 @@ void ExecuteCommand(char *Input, char *Arg1){
     	// struct File* Test = CreateFile("Test.txt", "This is a test", StringLength("This is a test"), Files);
 		ListFolders(Folders);
 		ListFiles(Files);
-	} else if (CompareString(Input, "create") == 0) {
+
+		TerminalWrite("\n");
+	} else if (CompareString(Input, "mk") == 0) {
 		Files = CreateFile(Arg1, "", 2, Files);
+		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "cd") == 0) {
 		// todo: make it so that its compatible with created folders
 		if (CompareString(Arg1, "usr") == 0) {
@@ -507,8 +510,41 @@ void ExecuteCommand(char *Input, char *Arg1){
 		TerminalWrite("\n\n");
 	} else if (CompareString(Input, "rpt") == 0) {
 		TerminalSetColor(0x0A);
+		TerminalWrite(Tab);
+
+		TerminalWrite("\"");
 		TerminalWrite(Arg1);
+		TerminalWrite("\"");
+
 		TerminalWrite("\n\n");
+	} else if (CompareString(Input, "chlan") == 0) {
+		TerminalSetColor(0x0E);
+		TerminalWrite(Tab);
+
+		if (CompareString(Arg1, "english") == 0 || CompareString(Arg1, "en") == 0) {
+			Language = "english";
+
+			TerminalWrite("System has successfully been changed to English.");
+			TerminalWrite("\n\n");
+		} else if (CompareString(Arg1, "french") == 0 || CompareString(Arg1, "fr") == 0) {
+			Language = "french";
+
+			TerminalWrite("Le système a bien été changé en Français.");
+			TerminalWrite("\n\n");
+		} else if (CompareString(Arg1, "tessong") == 0 || CompareString(Arg1, "te") == 0) {
+			Language = "tessong";
+
+			TerminalWrite("Ïma System chänge hassê bin Tessong ïn.");
+			TerminalWrite("\n\n");
+		} else {
+			if (Language = "french") {
+				TerminalWrite("Cette langue n'existe pas.");
+			} else if (Language = "tessong") {
+				TerminalWrite("Thëss lungaë exïtt nôn.");
+			} else {
+				TerminalWrite("This language does not exist.");
+			}
+		}
 	} else {
 		TerminalSetColor(0x0C);
 

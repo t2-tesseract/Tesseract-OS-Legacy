@@ -8,12 +8,10 @@
 void _start(){
     Start();
 
-    if (InitVfs() != 0){
-        TerminalSetColor(0x0C);
-        TerminalWrite("Error! Failed to init VFS!\n");
+    if (InitVfs() != 0) {
         return -1;
         asm("hlt");
-    }
+    } 
 
     while(1);
 }
