@@ -2,23 +2,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <Include/Common/Common.h>
+// #include "Isr.h"
 
-#define IdtBase  0x800	
-#define IdtSize  0xFF	
-#define IdtGate  0x8E00	
+#define IdtBase  0x800
+#define IdtSize  0xFF
+#define IdtGate  0x8E00
 
-struct IdtDescriptor{
-	uint16_t offset0_15;
-	uint16_t select;
-	uint16_t type;
-	uint16_t offset16_31;
-} __attribute__ ((packed));
+struct IdtDescriptor;
+struct IdtPointer;
 
-struct IdtPointer{
-	uint16_t limit;
-	uint32_t base;
-} __attribute__ ((packed));
-
-void InitIdtDescriptor(uint16_t, uint32_t, uint16_t, struct IdtDescriptor*);
+void InitIdtDescriptor(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 void InitIdt(void);
-

@@ -20,7 +20,8 @@
         "vfs.h": "c",
         "cstring": "c",
         "log.h": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "keyboard.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

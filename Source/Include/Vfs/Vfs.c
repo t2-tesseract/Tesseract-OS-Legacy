@@ -5,6 +5,10 @@
 #include <Include/Common/Common.h>
 #include "Vfs.h"
 
+const char* curDir = "";
+const char* Resolution = "80x25";
+const char* Language = "english";
+
 struct Folder *Folders = NULL;
 struct File* Files = NULL;
 
@@ -97,9 +101,13 @@ struct Folder *ListFolders(struct Folder *Folders){
 
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name){
     struct Folder *f = GoToFolder(Folders, Name);
+
+    curDir = f->Name;
     if (f == NULL) {
         return NULL;
     }
+
+    Folders = NULL;
     return f;
 }
 
@@ -121,31 +129,6 @@ int InitVfs(){
             return -1;
         }
     }
-
-    /*Folders = CreateFolder("usr");
-    if (Folders == "NULL") {
-        return -1;
-    }
-
-    Folders = CreateFolder("bin");
-    if (Folders == NULL) {
-        return -1;
-    }
-
-    Folders = CreateFolder("dev");
-    if (Folders == NULL) {
-        return -1;
-    }
-
-    Folders = CreateFolder("home");
-    if (Folders == NULL) {
-        return -1;
-    }
-
-    Folders = CreateFolder("lib");
-    if (Folders == NULL) {
-        return -1;
-    }*/
     
     return 0;
 }

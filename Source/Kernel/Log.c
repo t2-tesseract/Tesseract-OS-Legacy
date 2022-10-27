@@ -2,14 +2,20 @@
 #include <Include/TextMode/Printk.h>
 #include <Include/Cpu/Gdt/Gdt.h>
 #include <Include/Cpu/Idt/Idt.h>
+#include <Include/Cpu/Idt/Isr.h>
 #include <Include/Graphics/Graphics.h>
+#include <Include/Cpu/Idt/Interrupts/Keyboard/Keyboard.h>
 #include "Log.h"
 
 void Start(){
     InitGdt();
 	InitIdt();
 	InitPic();
+	InitIsr();
+	InitIrq();
     InitDynamicMem();
+
+	KeyboardInstall();
 
     TerminalClear();
 

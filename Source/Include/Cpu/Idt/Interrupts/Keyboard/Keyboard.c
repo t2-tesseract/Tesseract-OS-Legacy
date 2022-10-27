@@ -47,7 +47,7 @@ const char KeyboardMap[] = {
   	  0,
 };
 
-void KeyboardInt(void){
+void KeyboardHandler(struct Registers *r){
     uint8_t Scancode = Inb(0x60);
 
     if (Scancode > 57) return;
@@ -68,4 +68,8 @@ void KeyboardInt(void){
 		char String[2] = {Letter, '\0'};
 		TerminalWrite(String);
 	}
+}
+
+void KeyboardInstall(){
+	IrqInstallHandler(1, KeyboardHandler);
 }

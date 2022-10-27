@@ -6,6 +6,10 @@
 extern struct Folder *Folders;
 extern struct File* Files;
 
+extern const char* curDir;
+extern const char* Resolution;
+extern const char* Language;
+
 struct File{
     char *Name;
     char *Data;

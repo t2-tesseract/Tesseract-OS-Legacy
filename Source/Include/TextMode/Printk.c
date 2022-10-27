@@ -33,6 +33,10 @@ void Itoa(char *buf, unsigned long int n, int base){
 	}
 }
 
+void PrintkSetColor(uint8_t SetColor){
+	Color = SetColor;
+}
+
 void PutChar(char c){
 	switch (c)
 	{
