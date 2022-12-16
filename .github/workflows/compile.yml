@@ -19,3 +19,8 @@ jobs:
            sudo apt-get install -y nasm
     - name: Build .img file
       run: make
+    - uses: actions/upload-artifact@v3
+    - name: Upload Artifact
+      with:
+        name: build
+        path: OSImage.img
