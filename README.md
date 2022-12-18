@@ -13,5 +13,8 @@ Because we believe Tesseract is not like the others. Tesseract can change what y
 # Why the Tesseract name?
 A tesseract is basically a 4D shape, which describes Tesseract. An operating system from a new dimension.
 
+# Why is it called "Legacy"?
+Because me and Kokolor are making a new version using Grub, but this version is still alive as well.
+
 # Build Instructions: 
 [Click here](/Documentation/BUILD.md) to read through the compiling manual.
