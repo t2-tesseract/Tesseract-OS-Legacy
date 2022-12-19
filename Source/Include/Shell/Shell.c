@@ -296,8 +296,6 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 			TerminalWrite("The folder specified does not exist.\n");
 		}*/
 
-		int* found = bsearch(&Arg1, Folders, sizeof(int), compare);
-
 		TerminalWrite("\n");
 	/*} else if (CompareString(Input, "cd usr") == 0) {
 		Folders = GoToFolder(Folders, "usr");
