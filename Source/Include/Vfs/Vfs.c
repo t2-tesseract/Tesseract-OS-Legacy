@@ -76,12 +76,21 @@ struct Folder *FolderCreateFile(struct Folder *Folders, char *Name){
 
 struct Folder *CreateFolder(char *Name){
     struct Folder *f = MemoryAlloc(sizeof(struct Folder));
+    if (f == NULL) {
+        // Error: unable to allocate memory for the new folder
+        return NULL;
+    }
+
     f->Name = Name;
     f->SubFolders = NULL;
     f->Files = NULL;
+    f->Next = NULL;
+
+    // Add the new folder to the linked list of folders
     f->Next = Folders;
     Folders = f;
-    return Folders;
+
+    return f;
 }
 
 int DeleteFolder(struct Folder *f){
@@ -92,7 +101,7 @@ int DeleteFolder(struct Folder *f){
     return 0;
 }
 
-struct Folder *ListFolders(struct Folder *Folders){
+/*struct Folder *ListFolders(struct Folder *Folders){
     struct File *f = Folders;
     TerminalSetColor(0x0E);
     while (f != NULL) {
@@ -102,6 +111,21 @@ struct Folder *ListFolders(struct Folder *Folders){
         f = f->Next;
     }
     return f;
+}*/
+
+struct Folder *ListFolders(struct Folder* root) {
+    // Traverse the linked list of folders starting from the root folder
+    struct Folder* current = root;
+
+    TerminalSetColor(0x0E);
+    while (current != NULL) {
+        TerminalWrite(Tab);
+        TerminalWrite(current->Name);
+        TerminalWrite("/\n");
+        current = current->Next;
+    }
+
+    return current;
 }
 
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name){

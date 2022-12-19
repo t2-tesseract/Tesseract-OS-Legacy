@@ -262,7 +262,7 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 		ListFiles(Files);
 
 		TerminalWrite("\n");
-	} else if (CompareString(Input, "mk file") == 0) {
+	} else if (CompareString(Input, "mkf") == 0) {
 		Files = CreateFile(Arg1, Arg2, 2, Files);
 
 		TerminalWrite("Successfully created the file: \"");
@@ -274,44 +274,45 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 		TerminalWrite(Arg2);
 
 		TerminalWrite("\".\n\n");
+	} else if (CompareString(Input, "mkd") == 0) {
+		Folders = CreateFolder(Arg1);
+
+		TerminalWrite("Successfully created the folder: \"");
+
+		//TerminalSetColor();
+		TerminalWrite(Arg1);
+		
+		TerminalWrite("\".\n\n");
 	} else if (CompareString(Input, "cd") == 0) {
-		// todo: make it so that its compatible with created folders
-		/*if (CompareString(Arg1, "usr") == 0) {
-			Folders = ChangeDirectory(Folders, "usr");
-		} else if (CompareString(Arg1, "bin") == 0) {
-			Folders = ChangeDirectory(Folders, "bin");
-		} else if (CompareString(Arg1, "dev") == 0) {
-			Folders = ChangeDirectory(Folders, "dev");
-		} else if (CompareString(Arg1, "home") == 0) {
-			Folders = ChangeDirectory(Folders, "home");
-		} else if (CompareString(Arg1, "lib") == 0) {
-			Folders = ChangeDirectory(Folders, "lib");
-		} else if (CompareString(Arg1, "") == 0) {
-			TerminalSetColor(0x0C);
-			TerminalWrite(Tab);
-			TerminalWrite("Please specify a folder.\n");
-		} else {
+		// Made so that it's compatible with user-created folders, part of the code made by AI (ChatGPT).
+		#define MAX_FOLDERS 999
+		struct Folder folderArray[MAX_FOLDERS];
+
+		struct Folder* current = Folders;
+		int i = 0;
+		while (current != NULL && i < MAX_FOLDERS) {
+			folderArray[i++] = *current;
+			current = current->Next;
+		}
+
+		bool folderFound = false;
+		size_t folderArraySize = sizeof(folderArray) / sizeof(folderArray[0]);
+
+		for (int i = 0; i < folderArraySize; i++) {
+  			if (CompareString(Arg1, folderArray[i].Name) == 0) {
+				Folders = ChangeDirectory(Folders, Arg1);
+				folderFound = true;
+				break;
+			}
+		}
+
+		if (!folderFound) {
 			TerminalSetColor(0x0C);
 			TerminalWrite(Tab);
 			TerminalWrite("The folder specified does not exist.\n");
-		}*/
+		}
 
 		TerminalWrite("\n");
-	/*} else if (CompareString(Input, "cd usr") == 0) {
-		Folders = GoToFolder(Folders, "usr");
-		curDir = "usr";
-	} else if (CompareString(Input, "cd bin") == 0) {
-		Folders = GoToFolder(Folders, "bin");
-		curDir = "bin";
-	} else if (CompareString(Input, "cd dev") == 0) {
-		Folders = GoToFolder(Folders, "dev");
-		curDir = "dev";
-	} else if (CompareString(Input, "cd home") == 0) {
-		Folders = GoToFolder(Folders, "home");
-		curDir = "home";
-	} else if (CompareString(Input, "cd lib") == 0) {
-		Folders = GoToFolder(Folders, "lib");
-		curDir = "lib";*/
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		TerminalWrite("\n");
 
