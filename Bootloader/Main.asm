@@ -15,6 +15,18 @@ KernelLocation equ 0x1000
 
 [bits 16]
 LoadKernel:
+    mov ax, 0x4f01
+    mov cx, 0x117 ; Mode we want
+    mov bx, 0x0800 ; Offset for the vbe structure
+    mov es, bx
+    mov di, 0x00
+    int 0x10
+
+    ; Make the switch
+    mov ax, 0x4f02
+    mov bx, 0x117
+    int 0x10
+
     mov bx, KernelLocation
     mov dh, 54
     mov dl, [BootDrive]
