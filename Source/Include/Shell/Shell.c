@@ -8,7 +8,7 @@
 
 char* Argv;
 
-void ExecuteCommand(char *Input, char *Arg1){
+void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	int i;
 
     if (CompareString(Input, "shutdown") == 0) {
@@ -262,12 +262,21 @@ void ExecuteCommand(char *Input, char *Arg1){
 		ListFiles(Files);
 
 		TerminalWrite("\n");
-	} else if (CompareString(Input, "mk") == 0) {
-		Files = CreateFile(Arg1, "", 2, Files);
-		TerminalWrite("\n\n");
+	} else if (CompareString(Input, "mk file") == 0) {
+		Files = CreateFile(Arg1, Arg2, 2, Files);
+
+		TerminalWrite("Successfully created the file: \"");
+
+		//TerminalSetColor();
+		TerminalWrite(Arg1);
+
+		TerminalWrite("\"\ncontaining the data: \"");
+		TerminalWrite(Arg2);
+
+		TerminalWrite("\".\n\n");
 	} else if (CompareString(Input, "cd") == 0) {
 		// todo: make it so that its compatible with created folders
-		if (CompareString(Arg1, "usr") == 0) {
+		/*if (CompareString(Arg1, "usr") == 0) {
 			Folders = ChangeDirectory(Folders, "usr");
 		} else if (CompareString(Arg1, "bin") == 0) {
 			Folders = ChangeDirectory(Folders, "bin");
@@ -285,7 +294,9 @@ void ExecuteCommand(char *Input, char *Arg1){
 			TerminalSetColor(0x0C);
 			TerminalWrite(Tab);
 			TerminalWrite("The folder specified does not exist.\n");
-		}
+		}*/
+
+		int* found = bsearch(&Arg1, Folders, sizeof(int), compare);
 
 		TerminalWrite("\n");
 	/*} else if (CompareString(Input, "cd usr") == 0) {

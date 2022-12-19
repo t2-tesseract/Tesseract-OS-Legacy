@@ -58,9 +58,27 @@ void KeyboardHandler(struct Registers *r){
 		}
 	} else if (Scancode == Enter) {
 		TerminalWrite("\n");
-		char *KeyBufferArg = StringTok(KeyBuffer, ":");
+
+		/*char *KeyBufferArg = StringTok(KeyBuffer, ":");
 		KeyBufferArg = StringTok(NULL, ":");
-        ExecuteCommand(KeyBuffer, KeyBufferArg);
+
+        ExecuteCommand(KeyBuffer, KeyBufferArg);*/
+
+		char *token;
+		char var1[999], var2[999], var3[999];
+
+		token = StringTok(KeyBuffer, ":");
+		StringCopy(var1, token);
+
+		// get the second token
+		token = StringTok(NULL, ":");
+		StringCopy(var2, token);
+
+		// get the third token
+		token = StringTok(NULL, ":");
+		StringCopy(var3, token);
+
+		ExecuteCommand(var1, var2, var3);
         KeyBuffer[0] = '\0';
     } else {
 		char Letter = KeyboardMap[(int) Scancode];

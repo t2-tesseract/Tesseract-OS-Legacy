@@ -193,6 +193,54 @@ char* StringTok(char* String, const char* Delim){
     return String;
 }
 
+char* StringCopy(char* destination, const char* source)
+{
+    // return if no memory is allocated to the destination
+    if (destination == NULL) {
+        return NULL;
+    }
+ 
+    // take a pointer pointing to the beginning of the destination string
+    char *ptr = destination;
+ 
+    // copy the C-string pointed by source into the array
+    // pointed by destination
+    while (*source != '\0')
+    {
+        *destination = *source;
+        destination++;
+        source++;
+    }
+ 
+    // include the terminating null character
+    *destination = '\0';
+ 
+    // the destination is returned by standard `strcpy()`
+    return ptr;
+}
+
+void *
+bsearch (const void *key, const void *base0,
+         size_t nmemb, size_t size,
+         int (*compar)(const void *, const void *))
+{
+	const char *base = (const char *) base0;
+	int lim, cmp;
+	const void *p;
+
+	for (lim = nmemb; lim != 0; lim >>= 1) {
+		p = base + (lim >> 1) * size;
+		cmp = (*compar)(key, p);
+		if (cmp == 0)
+			return (void *)p;
+		if (cmp > 0) {	/* key > p: move right */
+			base = (const char *)p + size;
+			lim--;
+		} /* else move left */
+	}
+	return (NULL);
+}
+
 size_t StringCspn(const char* S, const char* Reject){
     size_t Count = 0;
     while (*S)

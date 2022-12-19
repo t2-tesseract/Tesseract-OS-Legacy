@@ -18,6 +18,7 @@ void *MemoryAlloc(size_t size);
 void MemoryFree(void *p);
 const char* StringChar(const char* String, char Char);
 char* StringTok(char* String, const char* Delim);
+char* StringCopy(char* destination, const char* source);
 size_t StringCspn(const char* S, const char* Reject);
 size_t StringSpn(const char* S, const char* Accept);
 uint32_t StringLength(const char *String);

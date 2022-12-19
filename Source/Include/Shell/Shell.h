@@ -3,4 +3,4 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-void ExecuteCommand(char *Input, char *Arg1);
+void ExecuteCommand(char *Input, char *Arg1, char *Arg2);

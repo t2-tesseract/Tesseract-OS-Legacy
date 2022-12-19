@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <Include/TextMode/TextMode.h>
 #include <Include/Common/Common.h>
 #include "Vfs.h"
 
@@ -47,7 +48,9 @@ void WriteFile(struct File *f, char *Data){
 
 struct File *ListFiles(struct File *Files) {
     struct File *f = Files;
+    TerminalSetColor(0x0B);
     while (f != NULL) {
+        TerminalWrite(Tab);
         TerminalWrite(f->Name);
         TerminalWrite("\n");
         f = f->Next;
@@ -91,7 +94,9 @@ int DeleteFolder(struct Folder *f){
 
 struct Folder *ListFolders(struct Folder *Folders){
     struct File *f = Folders;
+    TerminalSetColor(0x0E);
     while (f != NULL) {
+        TerminalWrite(Tab);
         TerminalWrite(f->Name);
         TerminalWrite("/\n");
         f = f->Next;
