@@ -152,6 +152,13 @@ void DebugWrite(const char* String, int Mode){
 
 		TerminalSetColor(0x0F);
 		TerminalWrite(String);
+	} else if (Mode == 3) {
+		//success
+		TerminalSetColor(0x0A);
+		TerminalWrite("Success: ");
+
+		TerminalSetColor(0x0F);
+		TerminalWrite(String);
 	} else {
 		//log 
 		TerminalSetColor(0x08);
@@ -161,12 +168,10 @@ void DebugWrite(const char* String, int Mode){
 		TerminalWrite(String);
 	}
 
-	/*if (toEmuConsole) {
-		while (*String) {
-			i686_outb(0xE9, *String);
-			String++;
-		} 
-	}*/
+	while (*String) {
+		Outb(0xE9, *String);
+		String++;
+	} 
 }
 
 void TerminalShell(){

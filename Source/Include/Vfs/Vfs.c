@@ -13,14 +13,6 @@ const char* Language = "english";
 struct Folder *Folders = NULL;
 struct File* Files = NULL;
 
-char *toCreate[4] = {
-    "usr", 
-    "bin",
-    "dev",
-    "home",
-    "lib"
-};
-
 struct File *CreateFile(char *Name, char *Data, int Size, struct File *Files) {
     struct File *f = MemoryAlloc(sizeof(struct File));
     f->Name = Name;
@@ -50,7 +42,7 @@ struct File *ListFiles(struct File *Files) {
     struct File *f = Files;
     TerminalSetColor(0x0B);
     while (f != NULL) {
-        TerminalWrite(Tab);
+        TerminalWrite("    ");
         TerminalWrite(f->Name);
         TerminalWrite("\n");
         f = f->Next;
@@ -76,6 +68,11 @@ struct Folder *FolderCreateFile(struct Folder *Folders, char *Name){
 
 struct Folder *CreateFolder(char *Name){
     struct Folder *f = MemoryAlloc(sizeof(struct Folder));
+
+    /*TerminalWrite("Name: ");  // Write debugging output to the terminal
+    TerminalWrite(Name);  // Write debugging output to the terminal
+    TerminalWrite("\n");  // Write debugging output to the terminal*/
+
     if (f == NULL) {
         // Error: unable to allocate memory for the new folder
         return NULL;
@@ -84,13 +81,10 @@ struct Folder *CreateFolder(char *Name){
     f->Name = Name;
     f->SubFolders = NULL;
     f->Files = NULL;
-    f->Next = NULL;
-
-    // Add the new folder to the linked list of folders
     f->Next = Folders;
     Folders = f;
 
-    return f;
+    return Folders;
 }
 
 int DeleteFolder(struct Folder *f){
@@ -101,32 +95,33 @@ int DeleteFolder(struct Folder *f){
     return 0;
 }
 
-/*struct Folder *ListFolders(struct Folder *Folders){
-    struct File *f = Folders;
+struct Folder *ListFolders(struct Folder *Folders){
+    struct Folder *f = Folders;
+
     TerminalSetColor(0x0E);
     while (f != NULL) {
-        TerminalWrite(Tab);
+        TerminalWrite("    ");
         TerminalWrite(f->Name);
         TerminalWrite("/\n");
         f = f->Next;
     }
     return f;
-}*/
+}
 
-struct Folder *ListFolders(struct Folder* root) {
+/*struct Folder *ListFolders(struct Folder* root) {
     // Traverse the linked list of folders starting from the root folder
     struct Folder* current = root;
 
     TerminalSetColor(0x0E);
     while (current != NULL) {
-        TerminalWrite(Tab);
+        TerminalWrite("    ");
         TerminalWrite(current->Name);
         TerminalWrite("/\n");
         current = current->Next;
     }
 
     return current;
-}
+}*/
 
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name){
     struct Folder *f = GoToFolder(Folders, Name);
@@ -151,8 +146,16 @@ struct Folder *GoToFolder(struct Folder *Folders, char *Name){
     return NULL;
 }
 
-int InitVfs(){   
-    for (int i = 0; i < 4; i++) {
+int InitVfs() {   
+    char *toCreate[] = {
+        "lib",
+        "usr",
+        "bin",
+        "dev",
+        "home"
+    };
+
+    for (int i = 0; i < 5; i++) {
         Folders = CreateFolder(toCreate[i]);
         if (Folders == "NULL") {
             return -1;

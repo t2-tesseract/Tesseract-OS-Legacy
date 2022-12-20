@@ -8,7 +8,7 @@
 
 char* Argv;
 
-struct UserVar *usVar = NULL;
+struct UserVar *userVars = NULL;
 
 void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	int i;
@@ -283,7 +283,7 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	} else if (CompareString(Input, "mkd") == 0) {
 		Folders = CreateFolder(Arg1);
 
-		TerminalWrite("Successfully created the folder: \"");
+		DebugWrite("Successfully created the folder: \"", 3);
 
 		//TerminalSetColor();
 		TerminalWrite(Arg1);
@@ -375,20 +375,36 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 
 		uv->Name = Arg1;
 		uv->Value = Arg2;
-		uv->Next = usVar;
+		uv->Next = userVars;
 
-		usVar = uv;
+		userVars = uv;
 
 		TerminalWrite("work whoohoo\n\n");
+		TerminalWrite(userVars);
 	} else if (CompareString(Input, "listv") == 0) {
-		struct File *uv = usVar;
+		#define MAX_VARIABLES 999
+		struct UserVar userVarArray[MAX_VARIABLES];
+
+		struct UserVar* current = userVars;
+		int i = 0;
+		while (current != NULL && i < MAX_VARIABLES) {
+			userVarArray[i++] = *current;
+			current = current->Next;
+		}
+
+		size_t userVarArraySize = sizeof(userVarArray) / sizeof(userVarArray[0]);
+
+		TerminalWrite(userVarArray->Name);
+		TerminalWrite("\n");
+		
+		/*struct UserVar *uv = usVar;
 		
 		while (uv != NULL) {
 			TerminalWrite(Tab);
 			TerminalWrite(uv->Name);
 			TerminalWrite("\n");
 			uv = uv->Next;
-		}
+		}*/
 	} else {
 		TerminalSetColor(0x0C);
 

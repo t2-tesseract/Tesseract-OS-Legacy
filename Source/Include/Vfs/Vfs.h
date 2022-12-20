@@ -32,7 +32,7 @@ struct File *ListFiles(struct File *Files);
 struct Folder *FolderCreateFile(struct Folder *Folders, char *Name);
 struct Folder *CreateFolder(char *Name);
 int DeleteFolder(struct Folder *f);
-struct Folder *ListFolders(struct Folder* root);
+struct Folder *ListFolders(struct Folder* Folders);
 struct Folder *ChangeDirectory(struct Folder *Folders, char *Name);
 struct Folder *GoToFolder(struct Folder *Folders, char *Name);
 int InitVfs();

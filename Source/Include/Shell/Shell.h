@@ -9,6 +9,6 @@ struct UserVar {
     char *Next;
 };
 
-extern struct UserVar *usVar;
+extern struct UserVar *userVars;
 
 void ExecuteCommand(char *Input, char *Arg1, char *Arg2);
