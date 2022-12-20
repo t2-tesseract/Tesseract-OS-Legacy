@@ -8,6 +8,8 @@
 
 char* Argv;
 
+struct UserVar *usVar = NULL;
+
 void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	int i;
 
@@ -69,11 +71,15 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 		// file system
 		char *fsCommandsList[] = {
 			"ls",
-			"cd"
+			"cd",
+			"mkf",
+			"mkd"
 		};
 		char *fsDescList[] = {
 			"List the files and folders in the current directory.",
-			"Change the current directory."
+			"Change the current directory.",
+			"Create a file with the provided name and data.",
+			"Create a folder with the provided name."
 		};
 		size_t fsArraySize = sizeof(fsCommandsList) / sizeof(fsCommandsList[0]);
 
@@ -359,6 +365,29 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 			} else {
 				TerminalWrite("This language does not exist.");
 			}
+		}
+	} else if (CompareString(Input, "insv") == 0) {
+		struct UserVar *uv = MemoryAlloc(sizeof(struct UserVar));
+		if (uv == NULL) {
+			// Error: unable to allocate memory for the new variable
+			TerminalWrite("not work\n\n");
+		}
+
+		uv->Name = Arg1;
+		uv->Value = Arg2;
+		uv->Next = usVar;
+
+		usVar = uv;
+
+		TerminalWrite("work whoohoo\n\n");
+	} else if (CompareString(Input, "listv") == 0) {
+		struct File *uv = usVar;
+		
+		while (uv != NULL) {
+			TerminalWrite(Tab);
+			TerminalWrite(uv->Name);
+			TerminalWrite("\n");
+			uv = uv->Next;
 		}
 	} else {
 		TerminalSetColor(0x0C);
