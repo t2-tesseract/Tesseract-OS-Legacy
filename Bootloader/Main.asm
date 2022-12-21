@@ -29,5 +29,49 @@ BeginProtectedMode:
 
 BootDrive db 0
 
+; VBE info block
+VBE_INFO_BLOCK db 256 dup (0)
+
+; VBE controller info block
+VBE_CONTROLLER_INFO db 256 dup (0)
+
+; VBE mode info block
+VBE_MODE_INFO db 256 dup (0)
+
+; Function prototypes
+GetVBEInfoBlock    equ 0x4F00
+GetVBEControllerInfo equ 0x4F01
+GetVBEModeInfo     equ 0x4F01
+SetVBEMode         equ 0x4F02
+
+
+; Initialize the VBE
+InitializeVBE:
+    ; Set up the VBE info block
+    mov ax, GetVBEInfoBlock
+    mov di, VBE_INFO_BLOCK
+    int 0x10
+    cmp ax, 0x4F
+    jne .error
+
+    ; Set up the VBE controller info block
+    mov ax, GetVBEControllerInfo
+    mov di, VBE_CONTROLLER_INFO
+    int 0x10
+    cmp ax, 0x4F
+    jne .error
+
+    ; Set up the VBE mode info block
+    mov ax, GetVBEModeInfo
+    mov di, VBE_MODE_INFO
+    int 0x10
+    cmp ax, 0x4F
+    jne .error
+
+    ret
+.error:
+    ; Handle error
+    ...
+
 times 510 - ($-$$) db 0
 dw 0xaa55

@@ -19,13 +19,13 @@ void Start(){
 
     TerminalClear();
 
-	DebugWrite("GDT Loaded.\n", 0);
-	DebugWrite("IDT Loaded.\n\n", 0);
+	DebugWrite("GDT Loaded.\n", 0, true, true);
+	DebugWrite("IDT Loaded.\n\n", 0, true, true);
 
 	if (InitVfs() != 0) {
-        DebugWrite("Error! Failed to init VFS!\n\n", 2);
+        DebugWrite("Failed to init VFS!\n\n", 2, true, true);
     } else {
-		DebugWrite("VFS Loaded.\n\n", 0);
+		DebugWrite("VFS Loaded.\n\n", 0, true, true);
 	}
 
 	TerminalShell();

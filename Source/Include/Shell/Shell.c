@@ -10,8 +10,12 @@ char* Argv;
 
 struct UserVar *userVars = NULL;
 
+extern const char* Tab;
+
 void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	int i;
+
+	Tab = "   ";
 
     if (CompareString(Input, "shutdown") == 0) {
 		// shutdown and clear the screen to show the message
@@ -271,7 +275,7 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	} else if (CompareString(Input, "mkf") == 0) {
 		Files = CreateFile(Arg1, Arg2, 2, Files);
 
-		TerminalWrite("Successfully created the file: \"");
+		DebugWrite("Created the file: \"", 3, true, true);
 
 		//TerminalSetColor();
 		TerminalWrite(Arg1);
@@ -283,7 +287,7 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	} else if (CompareString(Input, "mkd") == 0) {
 		Folders = CreateFolder(Arg1);
 
-		DebugWrite("Successfully created the folder: \"", 3);
+		DebugWrite("Created the folder: \"", 3, true, true);
 
 		//TerminalSetColor();
 		TerminalWrite(Arg1);
@@ -322,10 +326,33 @@ void ExecuteCommand(char *Input, char *Arg1, char *Arg2){
 	} else if (CompareString(Input, "sysfetch") == 0) {
 		TerminalWrite("\n");
 
+		char* sysfetch[34] = {
+			"              &&&             \n",
+			"             &&&&&            \n",
+			"            &&&&&&&           \n",
+			"          (&&&&&&&&&#         OS: Tesseract Operating System\n",
+			"         &&&&&&&&&&&&&        \n",
+			"        &&&&&&&&&&&&&&&       Version: 1.0\n",
+			"       &&&&&&&&&&&&&&&&&      Compile Date: todo\n",
+			"      &&&&&&&&&&&&&&&&&&&     \n",
+			"         %%%%%%%%%%%%%        \n",
+			"      %%%%%%%%%%%%%%%%%%%     \n",
+			"   %%%%%%%%%%%%%%%%%%%%%%%%%  \n",
+			"  %%%%%%%%%%%%%%%%%%%%%%%%%%% \n",
+			"    %%%%%%%%%%%%%%%%%%%%%%%   \n",
+			"       %%%%%%%%%%%%%%%%%      \n",
+			"         (%%%%%%%%%%%(        \n",
+			"        (((((%%%%%(((((       Made by: T2\n",
+			"       (((((((((((((((((      (iplux and Kokolor)\n",
+			"      (((((((((((((((((((     \n",
+			"         (((((((((((((        \n",
+			"            (((((((           "
+		};
+
 		TerminalSetColor(0x0B);
 		for (i = 0; i < 34; i++) {
 			TerminalWrite(Tab);
-			TerminalWrite(logo[i]);
+			TerminalWrite(sysfetch[i]);
 		}
 
 		TerminalWrite("\n\n");

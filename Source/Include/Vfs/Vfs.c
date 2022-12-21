@@ -15,11 +15,17 @@ struct File* Files = NULL;
 
 struct File *CreateFile(char *Name, char *Data, int Size, struct File *Files) {
     struct File *f = MemoryAlloc(sizeof(struct File));
+    if (f == NULL) {
+        DebugWrite("Failed to create the file!\n\n", 2, true, true);
+        return NULL;
+    }
+
     f->Name = Name;
     f->Data = Data;
     f->Size = Size;
     f->Next = Files;
     Files = f;
+
     return Files;
 }
 
@@ -75,6 +81,7 @@ struct Folder *CreateFolder(char *Name){
 
     if (f == NULL) {
         // Error: unable to allocate memory for the new folder
+        DebugWrite("Failed to create the folder!\n\n", 2, true, true);
         return NULL;
     }
 

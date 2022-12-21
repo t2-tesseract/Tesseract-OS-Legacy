@@ -10,7 +10,6 @@
 #define VgaOffsetLow 0x0f
 #define VgaOffsetHigh 0x0e
 
-extern char* logo[34];
 extern const char* Tab;
 
 int GetRowFromOffset(int Offset);
@@ -22,7 +21,7 @@ void TerminalSetColor(uint8_t Color);
 void TerminalBack();
 void TerminalPutChar(char Character, int Offset);
 void TerminalWrite(const char* String);
-void DebugWrite(const char* String, int Mode);
+void DebugWrite(const char* String, int Mode, bool visualMsg, bool debugCons);
 void TerminalShell();
 void SetCursor(int Offset);
 int GetCursor();

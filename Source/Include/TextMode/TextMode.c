@@ -16,29 +16,6 @@ int TerminalCol = 0;
 int TerminalRow = 0;
 uint8_t TerminalColor = 0x0F;
 
-char* logo[34] = {
-			"              &&&             \n",
-			"             &&&&&            \n",
-			"            &&&&&&&           \n",
-			"          (&&&&&&&&&#         OS: Tesseract Operating System\n",
-			"         &&&&&&&&&&&&&        \n",
-			"        &&&&&&&&&&&&&&&       Version: 1.0\n",
-			"       &&&&&&&&&&&&&&&&&      Compile Date: todo\n",
-			"      &&&&&&&&&&&&&&&&&&&     \n",
-			"         %%%%%%%%%%%%%        \n",
-			"      %%%%%%%%%%%%%%%%%%%     \n",
-			"   %%%%%%%%%%%%%%%%%%%%%%%%%  \n",
-			"  %%%%%%%%%%%%%%%%%%%%%%%%%%% \n",
-			"    %%%%%%%%%%%%%%%%%%%%%%%   \n",
-			"       %%%%%%%%%%%%%%%%%      \n",
-			"         (%%%%%%%%%%%(        \n",
-			"        (((((%%%%%(((((       Made by: T2\n",
-			"       (((((((((((((((((      (iplux and Kokolor)\n",
-			"      (((((((((((((((((((     \n",
-			"         (((((((((((((        \n",
-			"            (((((((           "
-		};
-
 const char* Tab = "    ";
 
 void SetCursor(int Offset){
@@ -130,48 +107,52 @@ void TerminalBack(){
     SetCursor(NewCursor);
 }
 
-void DebugWrite(const char* String, int Mode){
-	if (Mode == 0) {
-		//kernel
-		TerminalSetColor(0x02);
-		TerminalWrite("Kernel: ");
+void DebugWrite(const char* String, int Mode, bool visualMsg, bool debugCons) {
+	if (visualMsg) {
+		if (Mode == 0) {
+			//kernel
+			TerminalSetColor(0x02);
+			TerminalWrite("Kernel: ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite(String);
-	} else if (Mode == 1) {
-		//warning
-		TerminalSetColor(0x0E);
-		TerminalWrite("Warning: ");
+			TerminalSetColor(0x0F);
+			TerminalWrite(String);
+		} else if (Mode == 1) {
+			//warning
+			TerminalSetColor(0x0E);
+			TerminalWrite("Warning: ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite(String);
-	} else if (Mode == 2) {
-		//error
-		TerminalSetColor(0x04);
-		TerminalWrite("Error: ");
+			TerminalSetColor(0x0F);
+			TerminalWrite(String);
+		} else if (Mode == 2) {
+			//error
+			TerminalSetColor(0x04);
+			TerminalWrite("Error: ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite(String);
-	} else if (Mode == 3) {
-		//success
-		TerminalSetColor(0x0A);
-		TerminalWrite("Success: ");
+			TerminalSetColor(0x0F);
+			TerminalWrite(String);
+		} else if (Mode == 3) {
+			//success
+			TerminalSetColor(0x0A);
+			TerminalWrite("Success: ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite(String);
-	} else {
-		//log 
-		TerminalSetColor(0x08);
-		TerminalWrite("Log: ");
+			TerminalSetColor(0x0F);
+			TerminalWrite(String);
+		} else {
+			//log 
+			TerminalSetColor(0x08);
+			TerminalWrite("Log: ");
 
-		TerminalSetColor(0x0F);
-		TerminalWrite(String);
+			TerminalSetColor(0x0F);
+			TerminalWrite(String);
+		}
 	}
-
-	while (*String) {
-		Outb(0xE9, *String);
-		String++;
-	} 
+	
+	if (debugCons) {
+		while (*String) {
+			Outb(0xE9, *String);
+			String++;
+		} 
+	}
 }
 
 void TerminalShell(){
